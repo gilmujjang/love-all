@@ -8,6 +8,7 @@ import Button from "./components/Button";
 import { makeRangeDate } from "./utils/utils";
 import PlayerChart from "./components/Chart/PlayerChart";
 import CourtChart from "./components/Chart/CourtChart";
+import ActiveChart from "./components/Chart/ActiveChart";
 
 function App() {
   const [range, setRange] = useState(RangeEnum.육개월);
@@ -65,13 +66,15 @@ function App() {
         {/* contents */}
         <div style={{ width: 1080, display: "flex", flexWrap: "wrap" }}>
           <Card>
-            <PlayerChart data={data} />
+            <ActiveChart data={data} />
           </Card>
           <Card>
             <CourtChart data={data} />
           </Card>
-          <Card>test</Card>
-          <Card>test</Card>
+          <Card>
+            <PlayerChart data={data} />
+          </Card>
+          <Card></Card>
         </div>
       </div>
     </div>
