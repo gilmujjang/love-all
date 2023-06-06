@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import { getData } from "./utils/api";
+import { getData, countData } from "./utils/api";
 import Header from "./components/Header";
+import { DataEnum } from "./types";
 
 function App() {
   useEffect(() => {
