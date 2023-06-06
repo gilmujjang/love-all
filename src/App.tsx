@@ -19,7 +19,6 @@ function App() {
         startDate: makeRangeDate(range),
       })
     );
-    // console.log(countData(filteredData, DataEnum.이름).slice(0, 15));
   }, [range]);
 
   return (

@@ -4,11 +4,11 @@ export const makeRangeDate = (type: RangeEnum) => {
   const today = new Date();
   switch (type) {
     case RangeEnum.삼개월:
-      return new Date(today.getFullYear(), today.getMonth() - 2, 0);
+      return new Date(today.getFullYear(), today.getMonth() - 3, 1);
     case RangeEnum.육개월:
-      return new Date(today.getFullYear(), today.getMonth() - 5, 0);
+      return new Date(today.getFullYear(), today.getMonth() - 6, 1);
     case RangeEnum.일년:
-      return new Date(today.getFullYear(), today.getMonth() - 11, 0);
+      return new Date(today.getFullYear(), today.getMonth() - 12, 1);
     case RangeEnum.전체:
       return undefined;
   }
