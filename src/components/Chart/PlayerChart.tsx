@@ -1,6 +1,6 @@
 import { Line } from "react-chartjs-2";
 import { DataEnum, OriginData } from "../../types";
-import { countData } from "../../utils/api";
+import { countData, sortDataByValue } from "../../utils/api";
 import {
   registerables,
   Chart as ChartJS,
@@ -25,7 +25,10 @@ interface Props {
 }
 
 const PlayerChart = ({ data }: Props) => {
-  const playTimeCount = countData(data, DataEnum.이름).slice(0, 15);
+  const playTimeCount = sortDataByValue(countData(data, DataEnum.이름)).slice(
+    0,
+    15
+  );
 
   const dataSet = {
     labels: playTimeCount.map((item) => item.key),
@@ -39,7 +42,7 @@ const PlayerChart = ({ data }: Props) => {
     ],
   };
 
-  return <Line type="bar" data={dataSet} options={[]} />;
+  return <Line type="bar" data={dataSet} options={{}} />;
 };
 
 export default PlayerChart;

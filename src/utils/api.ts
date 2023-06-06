@@ -44,10 +44,41 @@ const countData = (data: OriginData[], target: DataEnum) => {
     }
     return null;
   });
-  const sortedArray = Object.entries(temp)
+  return temp;
+};
+
+const countDataMonthly = (data: OriginData[]) => {
+  const temp: { [key: string]: number } = {};
+  data.map((item) => {
+    const targetData: string =
+      item[DataEnum.년] +
+      "." +
+      (Number(item[DataEnum.월]) < 10 ? "0" : "") +
+      item[DataEnum.월];
+    if (targetData) {
+      if (temp[targetData]) {
+        temp[targetData] += 1;
+      } else {
+        temp[targetData] = 1;
+      }
+    }
+    return null;
+  });
+  return temp;
+};
+
+const sortDataByValue = (data: { [key: string]: number }) => {
+  const sortedArray = Object.entries(data)
     .sort((a, b) => b[1] - a[1])
     .map(([key, value]) => ({ key, value }));
   return sortedArray;
 };
 
-export { getData, countData };
+const sortDataByKey = (data: { [key: string]: number }) => {
+  const sortedArray = Object.entries(data)
+    .sort((a, b) => a[0] - b[0])
+    .map(([key, value]) => ({ key, value }));
+  return sortedArray;
+};
+
+export { getData, countData, countDataMonthly, sortDataByValue, sortDataByKey };

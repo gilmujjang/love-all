@@ -1,6 +1,6 @@
-import { Pie } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
 import { DataEnum, OriginData } from "../../types";
-import { countData } from "../../utils/api";
+import { countData, sortDataByValue } from "../../utils/api";
 import {
   Chart as ChartJS,
   Title,
@@ -9,6 +9,7 @@ import {
   ArcElement,
   CategoryScale,
   registerables,
+  plugins,
 } from "chart.js";
 import { makeCourtColor } from "../../utils/utils";
 
@@ -28,7 +29,7 @@ interface Props {
 const MAX = 8;
 
 const CourtChart = ({ data }: Props) => {
-  const countedData = countData(data, DataEnum.장소);
+  const countedData = sortDataByValue(countData(data, DataEnum.장소));
   const courtCount = countedData.splice(0, MAX);
   const etcCount = countedData
     .splice(MAX, countedData.length - 1)
@@ -48,7 +49,7 @@ const CourtChart = ({ data }: Props) => {
     ],
   };
 
-  return <Pie type="bar" data={dataSet} options={{}} />;
+  return <Doughnut data={dataSet} options={{}} />;
 };
 
 export default CourtChart;
