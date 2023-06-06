@@ -1,5 +1,5 @@
 import originData from "../assets/data/data.json";
-import { DataFilter, OriginData } from "../types";
+import { DataFilter, OriginData, DataEnum } from "../types";
 
 const getData = ({
   startDate,
@@ -31,4 +31,23 @@ const getData = ({
   return filteredData;
 };
 
-export { getData };
+const countData = (data: OriginData[], target: DataEnum) => {
+  const temp: { [key: string]: number } = {};
+  data.map((item) => {
+    const targetData = item[target];
+    if (targetData) {
+      if (temp[targetData]) {
+        temp[targetData] += 1;
+      } else {
+        temp[targetData] = 1;
+      }
+    }
+    return null;
+  });
+  const sortedArray = Object.entries(temp)
+    .sort((a, b) => b[1] - a[1])
+    .map(([key, value]) => ({ key, value }));
+  return sortedArray;
+};
+
+export { getData, countData };
