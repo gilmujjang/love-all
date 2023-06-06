@@ -48,3 +48,9 @@ export enum DataEnum {
   비고 = "비고",
   게스트 = "게스트",
 }
+
+export enum RangeEnum {
+  육개월 = "6month",
+  일년 = "1year",
+  전체 = "all",
+}
