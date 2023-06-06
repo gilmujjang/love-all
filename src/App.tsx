@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import { getData } from "./utils/api";
+import Header from "./components/Header";
 
 function App() {
   useEffect(() => {
@@ -25,9 +26,8 @@ function App() {
       className="bg-gray-50"
       style={{ minWidth: "100vw", minHeight: "100vh" }}
     >
-      <header style={{ padding: 16, fontWeight: "bold", color: "deepskyblue" }}>
-        Love All
-      </header>
+      <Header />
+      <div>hi</div>
     </div>
   );
 }
