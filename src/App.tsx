@@ -1,22 +1,25 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { getData, countData } from "./utils/api";
+import { getData } from "./utils/api";
 import Header from "./components/Header";
-import { DataEnum, RangeEnum } from "./types";
+import { OriginData, RangeEnum } from "./types";
 import Card from "./components/Card";
 import Button from "./components/Button";
 import { makeRangeDate } from "./utils/utils";
+import PlayerChart from "./components/Chart/PlayerChart";
+import CourtChart from "./components/Chart/CourtChart";
 
 function App() {
-  const [range, setRange] = useState(RangeEnum.일년);
+  const [range, setRange] = useState(RangeEnum.육개월);
+  const [data, setData] = useState<OriginData[]>([]);
 
   useEffect(() => {
-    const filteredData = getData({
-      name: "민무길",
-      startDate: makeRangeDate(range),
-    });
-    console.log("코트장별 횟수 비교");
-    console.log(countData(filteredData, DataEnum.요일));
+    setData(
+      getData({
+        startDate: makeRangeDate(range),
+      })
+    );
+    // console.log(countData(filteredData, DataEnum.이름).slice(0, 15));
   }, [range]);
 
   return (
@@ -25,7 +28,7 @@ function App() {
       style={{ minWidth: "100vw", minHeight: "100vh" }}
     >
       <Header />
-      <body
+      <div
         style={{
           margin: "0px 20px",
           display: "flex",
@@ -35,6 +38,12 @@ function App() {
       >
         {/* button container */}
         <div style={{ marginTop: 20, display: "flex" }}>
+          <Button
+            onClick={() => setRange(RangeEnum.삼개월)}
+            isSelected={range === RangeEnum.삼개월}
+          >
+            3개월
+          </Button>
           <Button
             onClick={() => setRange(RangeEnum.육개월)}
             isSelected={range === RangeEnum.육개월}
@@ -55,13 +64,17 @@ function App() {
           </Button>
         </div>
         {/* contents */}
-        <div style={{ width: 832, display: "flex", flexWrap: "wrap" }}>
-          <Card>test</Card>
-          <Card>test</Card>
+        <div style={{ width: 1080, display: "flex", flexWrap: "wrap" }}>
+          <Card>
+            <PlayerChart data={data} />
+          </Card>
+          <Card>
+            <CourtChart data={data} />
+          </Card>
           <Card>test</Card>
           <Card>test</Card>
         </div>
-      </body>
+      </div>
     </div>
   );
 }
