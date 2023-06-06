@@ -50,6 +50,7 @@ export enum DataEnum {
 }
 
 export enum RangeEnum {
+  일개월 = "1month",
   삼개월 = "3month",
   육개월 = "6month",
   일년 = "1year",

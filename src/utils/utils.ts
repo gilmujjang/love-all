@@ -3,6 +3,8 @@ import { RangeEnum } from "../types";
 export const makeRangeDate = (type: RangeEnum) => {
   const today = new Date();
   switch (type) {
+    case RangeEnum.일개월:
+      return new Date(today.getFullYear(), today.getMonth() - 1, 1);
     case RangeEnum.삼개월:
       return new Date(today.getFullYear(), today.getMonth() - 3, 1);
     case RangeEnum.육개월:

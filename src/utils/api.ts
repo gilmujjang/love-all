@@ -7,6 +7,8 @@ const getData = ({
   name,
   court,
   reservation,
+  //  cancel or rainy 둘중 하나가 true면 해당 내용만 출력
+  // 둘다 false면 cancel된 코트는 제외
   cancel = false,
   rainy = false,
   day,
@@ -22,6 +24,7 @@ const getData = ({
     if (cancel && !코트취소여부) return null;
     if (rainy && !(코트취소여부 === "우취" || 코트취소여부 === "우천취소"))
       return null;
+    if (!cancel && !rainy && 코트취소여부) return null;
     if (court && 장소 !== court) return null;
     if (reservation && 예약자 !== reservation) return null;
     if (day && day !== 요일) return null;

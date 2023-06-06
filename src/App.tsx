@@ -9,6 +9,7 @@ import { makeRangeDate } from "./utils/utils";
 import PlayerChart from "./components/Chart/PlayerChart";
 import CourtChart from "./components/Chart/CourtChart";
 import ActiveChart from "./components/Chart/ActiveChart";
+import ReserveChart from "./components/Chart/ReserveChart";
 
 function App() {
   const [range, setRange] = useState(RangeEnum.육개월);
@@ -38,6 +39,12 @@ function App() {
       >
         {/* button container */}
         <div style={{ marginTop: 20, display: "flex" }}>
+          <Button
+            onClick={() => setRange(RangeEnum.일개월)}
+            isSelected={range === RangeEnum.일개월}
+          >
+            1개월
+          </Button>
           <Button
             onClick={() => setRange(RangeEnum.삼개월)}
             isSelected={range === RangeEnum.삼개월}
@@ -74,7 +81,9 @@ function App() {
           <Card>
             <PlayerChart data={data} />
           </Card>
-          <Card></Card>
+          <Card>
+            <ReserveChart data={data} />
+          </Card>
         </div>
       </div>
     </div>
