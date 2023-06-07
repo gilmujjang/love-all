@@ -35,14 +35,19 @@ const ReserveChart = ({ data }: Props) => {
     datasets: [
       {
         type: "bar",
-        label: "예약횟수💪",
+        label: "예약횟수💗",
         backgroundColor: "#85C1E9",
         data: playTimeCount.map((item) => item.value),
+        datalabels: {
+          labels: {
+            title: null,
+          },
+        },
       },
     ],
   };
 
-  return <Line type="bar" data={dataSet} options={{}} />;
+  return <Line data={dataSet} options={{}} />;
 };
 
 export default ReserveChart;

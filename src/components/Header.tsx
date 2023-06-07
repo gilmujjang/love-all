@@ -10,7 +10,7 @@ const Header = () => {
       }}
     >
       <div style={{ fontWeight: "bold", fontSize: 24, color: "#0063B2" }}>
-        Love All
+        월간 러브올
       </div>
     </header>
   );

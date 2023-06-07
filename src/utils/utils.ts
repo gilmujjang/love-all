@@ -38,6 +38,8 @@ export const makeCourtColor = (court: string) => {
       return "#839192";
     case "장충":
       return "#BA4A00";
+    case "한남":
+      return "#EC7063";
     default:
       return "#AED6F1";
   }

@@ -32,14 +32,19 @@ const ActiveChart = ({ data }: Props) => {
     datasets: [
       {
         type: "line",
-        label: "월별 모임 횟수",
+        label: "월별 모임 횟수🎾",
         backgroundColor: "#0063B2",
         data: playTimeCount.map((item) => item.value),
+        datalabels: {
+          labels: {
+            title: null,
+          },
+        },
       },
     ],
   };
 
-  return <Line type="line" data={dataSet} options={[]} />;
+  return <Line data={dataSet} options={[]} />;
 };
 
 export default ActiveChart;

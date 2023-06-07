@@ -9,11 +9,12 @@ import {
   ArcElement,
   CategoryScale,
   registerables,
-  plugins,
 } from "chart.js";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 import { makeCourtColor } from "../../utils/utils";
 
 ChartJS.register(
+  ChartDataLabels,
   Title,
   Tooltip,
   Legend,
@@ -34,22 +35,43 @@ const CourtChart = ({ data }: Props) => {
   const etcCount = countedData
     .splice(MAX, countedData.length - 1)
     .reduce((sum, a) => sum + a.value, 0);
+  const labels = [
+    ...courtCount.map((item) => item.key + " " + item.value),
+    "기타 " + etcCount,
+  ];
 
   const dataSet = {
-    labels: [...courtCount.map((item) => item.key), "기타"],
+    labels: labels,
     datasets: [
       {
-        label: "코트장 비율",
         backgroundColor: [
           ...courtCount.map((item) => makeCourtColor(item.key)),
           makeCourtColor("기타"),
         ],
         data: [...courtCount.map((item) => item.value), etcCount],
+        datalabels: {
+          color: "white",
+        },
       },
     ],
   };
 
-  return <Doughnut data={dataSet} options={{}} />;
+  const options = {
+    plugins: {
+      legend: {
+        position: "right",
+      },
+    },
+  };
+
+  return (
+    <div style={{ display: "flex", width: "100%", height: "100%" }}>
+      <span style={{ whiteSpace: "nowrap" }}>코트장 비율</span>
+      <div style={{ width: "100%", height: "100%" }}>
+        <Doughnut data={dataSet} options={options} />
+      </div>
+    </div>
+  );
 };
 
 export default CourtChart;
