@@ -7,7 +7,7 @@ interface Props {
   children?: ReactNode;
 }
 
-const Card = ({ width = 480, height = 360, styles, children }: Props) => {
+const Card = ({ width = 520, height = 320, styles, children }: Props) => {
   return (
     <div
       style={{
@@ -21,6 +21,8 @@ const Card = ({ width = 480, height = 360, styles, children }: Props) => {
         marginRight: 16,
         maxWidth: "100%",
         marginTop: 20,
+        display: "flex",
+        alignItems: "center",
       }}
     >
       {children}
