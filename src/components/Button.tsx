@@ -18,6 +18,7 @@ const Button = ({ isSelected = false, onClick, children }: Props) => {
         borderRadius: 16,
         boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
         marginRight: 8,
+        border: "1px solid lightgray",
       }}
       onClick={onClick}
     >

@@ -15,7 +15,7 @@ const getData = ({
 }: DataFilter) => {
   const { data } = originData;
 
-  const filteredData = data.filter((item: OriginData) => {
+  const filteredData: OriginData[] = data.filter((item: OriginData) => {
     const { 날짜, 요일, 장소, 이름, 예약자, 코트취소여부 } = item;
     const playDate = new Date(날짜);
     if (startDate && playDate < startDate) return null;

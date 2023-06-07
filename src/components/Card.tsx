@@ -13,6 +13,7 @@ const Card = ({ width = 520, height = 320, styles, children }: Props) => {
       style={{
         ...styles,
         color: "#0063B2",
+        backgroundColor: "white",
         borderRadius: 8,
         boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
         padding: 16,
