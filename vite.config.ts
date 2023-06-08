@@ -11,9 +11,7 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      output: {
-        manualChunks: undefined,
-      },
+      external: ["/src/assets/data/data.json"],
     },
   },
 });
