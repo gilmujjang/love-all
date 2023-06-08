@@ -1,4 +1,4 @@
-import originData from "@/assets/data/data.json";
+import originData from "/src/assets/data/data.json";
 import { DataFilter, OriginData, DataEnum } from "../types";
 
 const getData = ({
