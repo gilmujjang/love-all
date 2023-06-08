@@ -9,9 +9,4 @@ export default defineConfig({
       "@/": "/src/",
     },
   },
-  build: {
-    rollupOptions: {
-      external: ["/src/assets/data/data.json"],
-    },
-  },
 });
