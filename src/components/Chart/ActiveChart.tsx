@@ -1,6 +1,6 @@
 import { Line } from "react-chartjs-2";
-import { DataEnum, OriginData } from "../../types";
-import { countData, countDataMonthly, sortDataByKey } from "../../utils/api";
+import { OriginData } from "../../types";
+import { countDataMonthly, sortDataByKey } from "../../utils/api";
 import {
   registerables,
   Chart as ChartJS,
@@ -31,7 +31,6 @@ const ActiveChart = ({ data }: Props) => {
     labels: playTimeCount.map((item) => item.key),
     datasets: [
       {
-        type: "line",
         label: "월별 모임 횟수🎾",
         backgroundColor: "#0063B2",
         data: playTimeCount.map((item) => item.value),
@@ -44,7 +43,7 @@ const ActiveChart = ({ data }: Props) => {
     ],
   };
 
-  return <Line data={dataSet} options={[]} />;
+  return <Line data={dataSet} />;
 };
 
 export default ActiveChart;

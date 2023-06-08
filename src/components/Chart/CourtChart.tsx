@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { Doughnut } from "react-chartjs-2";
 import { DataEnum, OriginData } from "../../types";
 import { countData, sortDataByValue } from "../../utils/api";
@@ -59,7 +61,7 @@ const CourtChart = ({ data }: Props) => {
   const options = {
     plugins: {
       legend: {
-        position: "right",
+        position: "right" as const,
       },
     },
   };

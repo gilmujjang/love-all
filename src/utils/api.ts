@@ -79,7 +79,7 @@ const sortDataByValue = (data: { [key: string]: number }) => {
 
 const sortDataByKey = (data: { [key: string]: number }) => {
   const sortedArray = Object.entries(data)
-    .sort((a, b) => a[0] - b[0])
+    .sort((a, b) => Number(a[0]) - Number(b[0]))
     .map(([key, value]) => ({ key, value }));
   return sortedArray;
 };

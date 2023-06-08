@@ -1,4 +1,4 @@
-import { Line } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import { DataEnum, OriginData } from "../../types";
 import { countData, sortDataByValue } from "../../utils/api";
 import {
@@ -34,7 +34,6 @@ const ReserveChart = ({ data }: Props) => {
     labels: playTimeCount.map((item) => item.key),
     datasets: [
       {
-        type: "bar",
         label: "예약횟수💗",
         backgroundColor: "#85C1E9",
         data: playTimeCount.map((item) => item.value),
@@ -47,7 +46,7 @@ const ReserveChart = ({ data }: Props) => {
     ],
   };
 
-  return <Line data={dataSet} options={{}} />;
+  return <Bar data={dataSet} />;
 };
 
 export default ReserveChart;

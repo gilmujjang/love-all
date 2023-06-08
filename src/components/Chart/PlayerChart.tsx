@@ -1,4 +1,4 @@
-import { Line } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import { DataEnum, OriginData } from "../../types";
 import { countData, sortDataByValue } from "../../utils/api";
 import {
@@ -34,7 +34,6 @@ const PlayerChart = ({ data }: Props) => {
     labels: playTimeCount.map((item) => item.key),
     datasets: [
       {
-        type: "bar",
         label: "참석횟수💪",
         backgroundColor: "#0063B2",
         data: playTimeCount.map((item) => item.value),
@@ -47,7 +46,7 @@ const PlayerChart = ({ data }: Props) => {
     ],
   };
 
-  return <Line type="bar" data={dataSet} />;
+  return <Bar data={dataSet} />;
 };
 
 export default PlayerChart;
