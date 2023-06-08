@@ -9,4 +9,11 @@ export default defineConfig({
       "@/": "/src/",
     },
   },
+  build: {
+    rollupOptions: {
+      input: {
+        main: "./index.html",
+      },
+    },
+  },
 });
