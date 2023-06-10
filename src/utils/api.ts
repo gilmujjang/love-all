@@ -70,6 +70,35 @@ const countDataMonthly = (data: OriginData[]) => {
   return temp;
 };
 
+const checkZero = (data: { [key: string]: number }) => {
+  const keys = Object.keys(data);
+  let tempYear = 0;
+  let tempMonth = 0;
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i].split(".");
+    const keyYear = Number(key[0]);
+    const keyMonth = Number(key[1]);
+    if (tempMonth !== 0) {
+      if (tempMonth === 12) {
+        if (keyMonth !== 1) {
+          data[tempYear + 1 + ".01"] = 0;
+        }
+      } else {
+        if (tempMonth + 1 !== keyMonth) {
+          data[
+            tempYear +
+              "." +
+              (tempMonth > 9 ? tempMonth + 1 : "0" + (tempMonth + 1))
+          ] = 0;
+        }
+      }
+    }
+    tempYear = keyYear;
+    tempMonth = keyMonth;
+  }
+  return data;
+};
+
 const sortDataByValue = (data: { [key: string]: number }) => {
   const sortedArray = Object.entries(data)
     .sort((a, b) => b[1] - a[1])
@@ -84,4 +113,11 @@ const sortDataByKey = (data: { [key: string]: number }) => {
   return sortedArray;
 };
 
-export { getData, countData, countDataMonthly, sortDataByValue, sortDataByKey };
+export {
+  getData,
+  countData,
+  countDataMonthly,
+  checkZero,
+  sortDataByValue,
+  sortDataByKey,
+};

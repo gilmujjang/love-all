@@ -1,6 +1,6 @@
 import { Line } from "react-chartjs-2";
 import { OriginData } from "../../types";
-import { countDataMonthly, sortDataByKey } from "../../utils/api";
+import { checkZero, countDataMonthly, sortDataByKey } from "../../utils/api";
 import {
   registerables,
   Chart as ChartJS,
@@ -26,7 +26,7 @@ interface Props {
 }
 
 const ActiveChart = ({ data }: Props) => {
-  const playTimeCount = sortDataByKey(countDataMonthly(data));
+  const playTimeCount = sortDataByKey(checkZero(countDataMonthly(data)));
 
   const dataSet = {
     labels: playTimeCount.map((item) => item.key),

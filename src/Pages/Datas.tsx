@@ -1,12 +1,11 @@
+import { useRef } from "react";
 import { useState, useEffect } from "react";
-import App from "../App";
 import Button from "../components/Button";
 import Card from "../components/Card";
 import ActiveChart from "../components/Chart/ActiveChart";
 import CourtChart from "../components/Chart/CourtChart";
 import PlayerChart from "../components/Chart/PlayerChart";
 import ReserveChart from "../components/Chart/ReserveChart";
-import Header from "../components/Header";
 import SearchInput from "../components/SearchInput";
 import { RangeEnum, OriginData } from "../types";
 import { getData } from "../utils/api";
@@ -20,12 +19,11 @@ const Datas = () => {
   const [name, setName] = useState<string>("");
 
   useEffect(() => {
-    setData(
-      getData({
-        startDate: makeRangeDate(range),
-        name: name ? name : undefined,
-      })
-    );
+    const newData = getData({
+      startDate: makeRangeDate(range),
+      name: name ? name : undefined,
+    });
+    setData(newData);
   }, [range, name]);
 
   return (

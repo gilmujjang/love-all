@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import SearchIcon from "../assets/Icon/SearchIcon";
+import { checkEnter } from "../utils/utils";
 
 interface Props {
   text: string;
@@ -23,6 +24,7 @@ const SearchInput = ({ text, setText, onClick }: Props) => {
       />
       <input
         value={text}
+        onKeyDown={(e) => checkEnter(e.key) && onClick()}
         onChange={(e) => setText(e.target.value)}
         type="text"
         style={{
