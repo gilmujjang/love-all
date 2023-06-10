@@ -34,7 +34,7 @@ const ReserveChart = ({ data }: Props) => {
     labels: playTimeCount.map((item) => item.key),
     datasets: [
       {
-        label: "예약횟수💗",
+        label: "예약횟수👍",
         backgroundColor: "#85C1E9",
         data: playTimeCount.map((item) => item.value),
         datalabels: {

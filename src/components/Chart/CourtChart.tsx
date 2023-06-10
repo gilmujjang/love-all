@@ -68,7 +68,7 @@ const CourtChart = ({ data }: Props) => {
 
   return (
     <div style={{ display: "flex", width: "100%", height: "100%" }}>
-      <span style={{ whiteSpace: "nowrap" }}>코트장 비율</span>
+      <span style={{ whiteSpace: "nowrap" }}>코트장 비율👨‍💻</span>
       <div style={{ width: "100%", height: "100%" }}>
         <Doughnut data={dataSet} options={options} />
       </div>

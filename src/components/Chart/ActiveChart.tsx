@@ -10,6 +10,7 @@ import {
   ArcElement,
   CategoryScale,
 } from "chart.js";
+import { ThemeColor } from "../../assets/constants";
 
 ChartJS.register(
   Title,
@@ -32,7 +33,7 @@ const ActiveChart = ({ data }: Props) => {
     datasets: [
       {
         label: "월별 모임 횟수🎾",
-        backgroundColor: "#0063B2",
+        backgroundColor: ThemeColor,
         data: playTimeCount.map((item) => item.value),
         datalabels: {
           labels: {

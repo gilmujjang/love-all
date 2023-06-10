@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { ThemeColor } from "../assets/constants";
 
 interface Props {
   isSelected?: boolean;
@@ -13,8 +14,8 @@ const Button = ({ isSelected = false, onClick, children }: Props) => {
         fontSize: 14,
         fontWeight: 600,
         padding: "4px 12px",
-        color: isSelected ? "#ffffff " : "#0063B2",
-        backgroundColor: isSelected ? "#0063B2" : "#ffffff",
+        color: isSelected ? "#ffffff " : ThemeColor,
+        backgroundColor: isSelected ? ThemeColor : "#ffffff",
         borderRadius: 16,
         boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
         marginRight: 8,

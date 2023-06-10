@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+import { ThemeColor } from "../assets/constants";
+
 const Header = () => {
   return (
     <header
@@ -9,9 +12,12 @@ const Header = () => {
         borderBottom: "1px solid gainsboro",
       }}
     >
-      <div style={{ fontWeight: "bold", fontSize: 24, color: "#0063B2" }}>
+      <Link
+        to={"/"}
+        style={{ fontWeight: "bold", fontSize: 24, color: ThemeColor }}
+      >
         월간 러브올
-      </div>
+      </Link>
     </header>
   );
 };

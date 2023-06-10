@@ -10,6 +10,7 @@ import {
   ArcElement,
   CategoryScale,
 } from "chart.js";
+import { ThemeColor } from "../../assets/constants";
 
 ChartJS.register(
   Title,
@@ -35,7 +36,7 @@ const PlayerChart = ({ data }: Props) => {
     datasets: [
       {
         label: "참석횟수💪",
-        backgroundColor: "#0063B2",
+        backgroundColor: ThemeColor,
         data: playTimeCount.map((item) => item.value),
         datalabels: {
           labels: {

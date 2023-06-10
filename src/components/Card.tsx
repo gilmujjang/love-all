@@ -1,4 +1,5 @@
 import { CSSProperties, ReactNode } from "react";
+import { ThemeColor } from "../assets/constants";
 
 interface Props {
   width?: number;
@@ -12,7 +13,7 @@ const Card = ({ width = 520, height = 320, styles, children }: Props) => {
     <div
       style={{
         ...styles,
-        color: "#0063B2",
+        color: ThemeColor,
         backgroundColor: "white",
         borderRadius: 8,
         boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
