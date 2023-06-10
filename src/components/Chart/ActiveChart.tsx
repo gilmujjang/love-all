@@ -1,6 +1,11 @@
 import { Line } from "react-chartjs-2";
 import { OriginData } from "../../types";
-import { checkZero, countDataMonthly, sortDataByKey } from "../../utils/api";
+import {
+  checkZero,
+  compareZero,
+  countDataMonthly,
+  sortDataByKey,
+} from "../../utils/api";
 import {
   registerables,
   Chart as ChartJS,
@@ -10,7 +15,7 @@ import {
   ArcElement,
   CategoryScale,
 } from "chart.js";
-import { ThemeColor } from "../../assets/constants";
+import { SkyBlue, ThemeColor } from "../../assets/constants";
 
 ChartJS.register(
   Title,
@@ -23,17 +28,26 @@ ChartJS.register(
 
 interface Props {
   data: OriginData[];
+  reservedData: OriginData[];
+  name: string;
 }
 
-const ActiveChart = ({ data }: Props) => {
-  const playTimeCount = sortDataByKey(checkZero(countDataMonthly(data)));
+const ActiveChart = ({ data, reservedData, name }: Props) => {
+  const countedDataMonthly = countDataMonthly(data);
+  const playTimeCount = sortDataByKey(checkZero(countedDataMonthly));
 
-  const dataSet = {
+  const reservedCount = sortDataByKey(
+    compareZero(countDataMonthly(reservedData), countedDataMonthly)
+  );
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const dataSet: any = {
     labels: playTimeCount.map((item) => item.key),
     datasets: [
       {
         label: "월별 모임 횟수🎾",
         backgroundColor: ThemeColor,
+        borderColor: "lightgray",
         data: playTimeCount.map((item) => item.value),
         datalabels: {
           labels: {
@@ -43,6 +57,21 @@ const ActiveChart = ({ data }: Props) => {
       },
     ],
   };
+
+  if (name)
+    dataSet.datasets.push({
+      type: "bar",
+      label: "예약횟수👍",
+      backgroundColor: SkyBlue,
+      barThickness: 32,
+      opacity: 0.5,
+      data: reservedCount.map((item) => item.value),
+      datalabels: {
+        labels: {
+          title: null,
+        },
+      },
+    });
 
   return <Line data={dataSet} />;
 };

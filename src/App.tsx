@@ -6,10 +6,10 @@ import { Routes, Route } from "react-router-dom";
 const App = () => {
   return (
     <div
-      className="bg-gray-50"
       style={{
         minWidth: "100vw",
         minHeight: "100vh",
+        backgroundColor: "white",
       }}
     >
       <Header />

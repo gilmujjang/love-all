@@ -10,6 +10,7 @@ import {
   ArcElement,
   CategoryScale,
 } from "chart.js";
+import { SkyBlue } from "../../assets/constants";
 
 ChartJS.register(
   Title,
@@ -35,7 +36,7 @@ const ReserveChart = ({ data }: Props) => {
     datasets: [
       {
         label: "예약횟수👍",
-        backgroundColor: "#85C1E9",
+        backgroundColor: SkyBlue,
         data: playTimeCount.map((item) => item.value),
         datalabels: {
           labels: {

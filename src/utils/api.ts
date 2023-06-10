@@ -99,6 +99,18 @@ const checkZero = (data: { [key: string]: number }) => {
   return data;
 };
 
+const compareZero = (
+  data: { [key: string]: number },
+  compareData: { [key: string]: number }
+) => {
+  const compareKeys = Object.keys(compareData);
+  compareKeys.map((key) => {
+    if (!data[key]) data[key] = 0;
+    return;
+  });
+  return data;
+};
+
 const sortDataByValue = (data: { [key: string]: number }) => {
   const sortedArray = Object.entries(data)
     .sort((a, b) => b[1] - a[1])
@@ -118,6 +130,7 @@ export {
   countData,
   countDataMonthly,
   checkZero,
+  compareZero,
   sortDataByValue,
   sortDataByKey,
 };

@@ -15,15 +15,25 @@ import { ThemeColor } from "../assets/constants";
 const Datas = () => {
   const [range, setRange] = useState(RangeEnum.육개월);
   const [data, setData] = useState<OriginData[]>([]);
+  const [reservedData, setReservedData] = useState<OriginData[]>([]);
+
   const [text, setText] = useState<string>("");
   const [name, setName] = useState<string>("");
 
   useEffect(() => {
-    const newData = getData({
-      startDate: makeRangeDate(range),
-      name: name ? name : undefined,
-    });
-    setData(newData);
+    setData(
+      getData({
+        startDate: makeRangeDate(range),
+        name: name ? name : undefined,
+      })
+    );
+
+    setReservedData(
+      getData({
+        startDate: makeRangeDate(range),
+        reservation: name ? name : undefined,
+      })
+    );
   }, [range, name]);
 
   return (
@@ -89,17 +99,25 @@ const Datas = () => {
       {/* contents */}
       <div style={{ width: 1080, display: "flex", flexWrap: "wrap" }}>
         <Card>
-          <ActiveChart data={data} />
+          <ActiveChart data={data} reservedData={reservedData} name={name} />
         </Card>
         <Card>
           <CourtChart data={data} />
         </Card>
-        <Card>
-          <PlayerChart data={data} />
-        </Card>
-        <Card>
-          <ReserveChart data={data} />
-        </Card>
+        {name ? (
+          <></>
+        ) : (
+          <Card>
+            <PlayerChart data={data} />
+          </Card>
+        )}
+        {name ? (
+          <></>
+        ) : (
+          <Card>
+            <ReserveChart data={reservedData} />
+          </Card>
+        )}
       </div>
     </div>
   );
