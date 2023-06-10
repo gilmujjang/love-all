@@ -34,6 +34,38 @@ const getData = ({
   return filteredData;
 };
 
+const getMyGameData = ({
+  data,
+  myPlayData,
+}: {
+  data: OriginData[];
+  myPlayData: OriginData[];
+}) => {
+  let myCnt = 0;
+  let myToggle = false;
+  const myGameData = data.filter((item) => {
+    const target = myPlayData[myCnt];
+    if (
+      item?.년 === target?.년 &&
+      item?.월 === target?.월 &&
+      item?.일 === target?.일 &&
+      item?.시작시간 === target?.시작시간 &&
+      item?.종료시간 === target?.종료시간
+    ) {
+      myToggle = true;
+      return true;
+    } else {
+      if (myToggle) {
+        myCnt += 1;
+        myToggle = false;
+      }
+      return false;
+    }
+  });
+
+  return myGameData;
+};
+
 const countData = (data: OriginData[], target: DataEnum) => {
   const temp: { [key: string]: number } = {};
   data.map((item) => {
@@ -127,6 +159,7 @@ const sortDataByKey = (data: { [key: string]: number }) => {
 
 export {
   getData,
+  getMyGameData,
   countData,
   countDataMonthly,
   checkZero,

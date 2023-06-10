@@ -40,15 +40,19 @@ const ActiveChart = ({ data, reservedData, name }: Props) => {
     compareZero(countDataMonthly(reservedData), countedDataMonthly)
   );
 
+  const labels = playTimeCount.map((item) => item.key);
+  const values = playTimeCount.map((item) => item.value);
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const dataSet: any = {
-    labels: playTimeCount.map((item) => item.key),
+    labels: labels,
     datasets: [
       {
         label: "월별 모임 횟수🎾",
+        type: playTimeCount.length === 1 ? "bar" : "line",
         backgroundColor: ThemeColor,
         borderColor: "lightgray",
-        data: playTimeCount.map((item) => item.value),
+        data: values,
         datalabels: {
           labels: {
             title: null,

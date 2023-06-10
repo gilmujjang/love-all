@@ -7,32 +7,38 @@ import PlayerChart from "../components/Chart/PlayerChart";
 import ReserveChart from "../components/Chart/ReserveChart";
 import SearchInput from "../components/SearchInput";
 import { RangeEnum, OriginData } from "../types";
-import { getData } from "../utils/api";
+import { getData, getMyGameData } from "../utils/api";
 import { makeRangeDate } from "../utils/utils";
 import { ThemeColor } from "../assets/constants";
+import BestPartnerChart from "../components/Chart/BestPartnerChart";
 
 const Datas = () => {
   const [range, setRange] = useState(RangeEnum.육개월);
   const [data, setData] = useState<OriginData[]>([]);
   const [reservedData, setReservedData] = useState<OriginData[]>([]);
+  const [myGameData, setMyGameData] = useState<OriginData[]>([]);
 
   const [text, setText] = useState<string>("");
   const [name, setName] = useState<string>("");
 
-  const width = window.innerWidth;
-
   useEffect(() => {
-    setData(
-      getData({
-        startDate: makeRangeDate(range),
-        name: name ? name : undefined,
-      })
-    );
+    const myData = getData({
+      startDate: makeRangeDate(range),
+      name: name ? name : undefined,
+    });
+    setData(myData);
 
     setReservedData(
       getData({
         startDate: makeRangeDate(range),
         reservation: name ? name : undefined,
+      })
+    );
+
+    setMyGameData(
+      getMyGameData({
+        data: getData({ startDate: makeRangeDate(range) }),
+        myPlayData: myData,
       })
     );
   }, [range, name]);
@@ -100,30 +106,33 @@ const Datas = () => {
       {/* contents */}
       <div
         style={{
-          width: width,
+          width: "100%",
+          maxWidth: 1080,
           display: "flex",
-          justifyContent: "center",
           flexWrap: "wrap",
         }}
       >
-        <Card>
-          <ActiveChart data={data} reservedData={reservedData} name={name} />
-        </Card>
+        {range !== RangeEnum.일개월 && (
+          <Card>
+            <ActiveChart data={data} reservedData={reservedData} name={name} />
+          </Card>
+        )}
         <Card>
           <CourtChart data={data} />
         </Card>
-        {name ? (
-          <></>
-        ) : (
+        {!name && (
           <Card>
             <PlayerChart data={data} />
           </Card>
         )}
-        {name ? (
-          <></>
-        ) : (
+        {!name && (
           <Card>
             <ReserveChart data={reservedData} />
+          </Card>
+        )}
+        {name && (
+          <Card>
+            <BestPartnerChart data={myGameData} name={name} />
           </Card>
         )}
       </div>

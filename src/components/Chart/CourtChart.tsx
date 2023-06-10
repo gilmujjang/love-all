@@ -37,10 +37,9 @@ const CourtChart = ({ data }: Props) => {
   const etcCount = countedData
     .splice(MAX, countedData.length - 1)
     .reduce((sum, a) => sum + a.value, 0);
-  const labels = [
-    ...courtCount.map((item) => item.key + " " + item.value),
-    "기타 " + etcCount,
-  ];
+  if (etcCount) courtCount.push({ key: "기타", value: etcCount });
+
+  const labels = [...courtCount.map((item) => item.key + " " + item.value)];
 
   const dataSet = {
     labels: labels,
@@ -48,9 +47,8 @@ const CourtChart = ({ data }: Props) => {
       {
         backgroundColor: [
           ...courtCount.map((item) => makeCourtColor(item.key)),
-          makeCourtColor("기타"),
         ],
-        data: [...courtCount.map((item) => item.value), etcCount],
+        data: [...courtCount.map((item) => item.value)],
         datalabels: {
           color: "white",
         },
@@ -68,7 +66,9 @@ const CourtChart = ({ data }: Props) => {
 
   return (
     <div style={{ display: "flex", width: "100%", height: "100%" }}>
-      <span style={{ whiteSpace: "nowrap" }}>코트장 비율👨‍💻</span>
+      <span style={{ whiteSpace: "nowrap", fontWeight: "bold", fontSize: 18 }}>
+        코트장 비율👨‍💻
+      </span>
       <div style={{ width: "100%", height: "100%" }}>
         <Doughnut data={dataSet} options={options} />
       </div>
