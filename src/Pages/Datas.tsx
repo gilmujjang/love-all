@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import { useState, useEffect } from "react";
 import Button from "../components/Button";
 import Card from "../components/Card";
@@ -19,6 +18,8 @@ const Datas = () => {
 
   const [text, setText] = useState<string>("");
   const [name, setName] = useState<string>("");
+
+  const width = window.innerWidth;
 
   useEffect(() => {
     setData(
@@ -97,7 +98,14 @@ const Datas = () => {
         </div>
       </div>
       {/* contents */}
-      <div style={{ width: 1080, display: "flex", flexWrap: "wrap" }}>
+      <div
+        style={{
+          width: width,
+          display: "flex",
+          justifyContent: "center",
+          flexWrap: "wrap",
+        }}
+      >
         <Card>
           <ActiveChart data={data} reservedData={reservedData} name={name} />
         </Card>
