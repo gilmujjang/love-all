@@ -40,7 +40,33 @@ export const makeCourtColor = (court: string) => {
       return "#BA4A00";
     case "한남":
       return "#EC7063";
+    case "럽픈":
+      return "#9e9764";
+    case "공휴일은못참지":
+      return "#F5D033";
+    case "1주년":
+      return "#DE4C8A";
+    case "대방":
+      return "#025669";
+    case "양재시민의숲":
+      return "#A2231D";
+    case "포천":
+      return "#6A5D4D";
+    case "우장산":
+      return "#E1CC4F";
+    case "서울대":
+      return "#1C542D";
+    case "럽랑가로스":
+      return "#D36E70";
     default:
       return "#AED6F1";
+  }
+};
+
+export const checkEnter = (e: string) => {
+  if (e === "Enter") {
+    return true;
+  } else {
+    return false;
   }
 };
