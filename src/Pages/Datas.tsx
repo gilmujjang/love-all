@@ -11,6 +11,7 @@ import { getData, getMyGameData } from "../utils/api";
 import { makeRangeDate } from "../utils/utils";
 import { ThemeColor } from "../assets/constants";
 import BestPartnerChart from "../components/Chart/BestPartnerChart";
+import { firebase } from "../Firebase";
 
 const Datas = () => {
   const [range, setRange] = useState(RangeEnum.육개월);
@@ -22,6 +23,7 @@ const Datas = () => {
   const [name, setName] = useState<string>("");
 
   useEffect(() => {
+    console.log(firebase);
     const myData = getData({
       startDate: makeRangeDate(range),
       name: name ? name : undefined,
