@@ -13,7 +13,7 @@ const Button = ({ isSelected = false, onClick, children }: Props) => {
       style={{
         fontSize: 14,
         fontWeight: 600,
-        padding: "4px 12px",
+        padding: "4px 8px",
         color: isSelected ? "#ffffff " : ThemeColor,
         backgroundColor: isSelected ? ThemeColor : "#ffffff",
         borderRadius: 16,

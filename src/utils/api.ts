@@ -82,6 +82,22 @@ const countData = (data: OriginData[], target: DataEnum) => {
   return temp;
 };
 
+const countPlayTimeData = (data: OriginData[], target: DataEnum) => {
+  const temp: { [key: string]: number } = {};
+  data.map((item) => {
+    const targetData = item[target];
+    if (targetData) {
+      if (temp[targetData]) {
+        temp[targetData] += Number(item.운동시간);
+      } else {
+        temp[targetData] = Number(item.운동시간);
+      }
+    }
+    return null;
+  });
+  return temp;
+};
+
 const countDataMonthly = (data: OriginData[]) => {
   const temp: { [key: string]: number } = {};
   data.map((item) => {
@@ -161,6 +177,7 @@ export {
   getData,
   getMyGameData,
   countData,
+  countPlayTimeData,
   countDataMonthly,
   checkZero,
   compareZero,
