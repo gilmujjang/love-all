@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
-import { ThemeColor } from "../assets/constants";
+import { Link, NavLink } from "react-router-dom";
+import { SkyBlue, ThemeColor } from "../assets/constants";
+import styled from "styled-components";
 
 const Header = () => {
   return (
@@ -18,8 +19,24 @@ const Header = () => {
       >
         월간 러브올
       </Link>
+      <div style={{ display: "flex" }}>
+        <SubMenu to={"/"}>데이터 분석</SubMenu>
+        <SubMenu to={"/insta"}>인스타</SubMenu>
+      </div>
     </header>
   );
 };
+
+const SubMenu = styled(NavLink)`
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  font-weight: 600;
+  color: ${SkyBlue};
+  &.active {
+    color: ${ThemeColor};
+    font-weight: bold;
+  }
+`;
 
 export default Header;
