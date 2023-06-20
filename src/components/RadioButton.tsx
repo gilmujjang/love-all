@@ -1,6 +1,3 @@
-import { ReactNode } from "react";
-import { ThemeColor } from "../assets/constants";
-
 interface Props {
   isSelected?: boolean;
   value: string | number;

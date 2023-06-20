@@ -11,8 +11,6 @@ import { getData, getMyGameData } from "../utils/api";
 import { makeRangeDate } from "../utils/utils";
 import { ThemeColor } from "../assets/constants";
 import BestPartnerChart from "../components/Chart/BestPartnerChart";
-import IphoneImage from "../assets/images/iphone14pro.png";
-import { firebase } from "../Firebase";
 
 const Datas = () => {
   const [range, setRange] = useState(RangeEnum.육개월);
