@@ -11,7 +11,7 @@ import {
   CategoryScale,
 } from "chart.js";
 import { ThemeColor } from "../../assets/constants";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Radiobutton from "../RadioButton";
 
 ChartJS.register(

@@ -70,3 +70,18 @@ export const checkEnter = (e: string) => {
     return false;
   }
 };
+
+export const getRangeDisplayName = (range: RangeEnum) => {
+  switch (range) {
+    case RangeEnum.전체:
+      return "전체";
+    case RangeEnum.일개월:
+      return "1개월";
+    case RangeEnum.삼개월:
+      return "3개월";
+    case RangeEnum.육개월:
+      return "6개월";
+    case RangeEnum.일년:
+      return "1년";
+  }
+};
