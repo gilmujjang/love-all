@@ -8,9 +8,10 @@ import ReserveChart from "../components/Chart/ReserveChart";
 import SearchInput from "../components/SearchInput";
 import { RangeEnum, OriginData } from "../types";
 import { getData, getMyGameData } from "../utils/api";
-import { makeRangeDate } from "../utils/utils";
+import { getRangeDisplayName, makeRangeDate } from "../utils/utils";
 import { ThemeColor } from "../assets/constants";
 import BestPartnerChart from "../components/Chart/BestPartnerChart";
+import PlayerInfoCard from "../components/Chart/PlayerInfoCard";
 
 const Datas = () => {
   const [range, setRange] = useState(RangeEnum.육개월);
@@ -78,31 +79,31 @@ const Datas = () => {
               onClick={() => setRange(RangeEnum.일개월)}
               isSelected={range === RangeEnum.일개월}
             >
-              1개월
+              {getRangeDisplayName(RangeEnum.일개월)}
             </Button>
             <Button
               onClick={() => setRange(RangeEnum.삼개월)}
               isSelected={range === RangeEnum.삼개월}
             >
-              3개월
+              {getRangeDisplayName(RangeEnum.삼개월)}
             </Button>
             <Button
               onClick={() => setRange(RangeEnum.육개월)}
               isSelected={range === RangeEnum.육개월}
             >
-              6개월
+              {getRangeDisplayName(RangeEnum.육개월)}
             </Button>
             <Button
               onClick={() => setRange(RangeEnum.일년)}
               isSelected={range === RangeEnum.일년}
             >
-              1년
+              {getRangeDisplayName(RangeEnum.일년)}
             </Button>
             <Button
               onClick={() => setRange(RangeEnum.전체)}
               isSelected={range === RangeEnum.전체}
             >
-              전체
+              {getRangeDisplayName(RangeEnum.전체)}
             </Button>
             <SearchInput
               text={text}
@@ -120,6 +121,11 @@ const Datas = () => {
             flexWrap: "wrap",
           }}
         >
+          {name && (
+            <Card>
+              <PlayerInfoCard data={myGameData} range={range} name={name} />
+            </Card>
+          )}
           {range !== RangeEnum.일개월 && (
             <Card>
               <ActiveChart
