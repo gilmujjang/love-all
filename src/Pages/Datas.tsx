@@ -119,6 +119,7 @@ const Datas = () => {
             maxWidth: 1080,
             display: "flex",
             flexWrap: "wrap",
+            justifyContent: "center",
           }}
         >
           {name && (
@@ -155,6 +156,7 @@ const Datas = () => {
           )}
         </div>
       </div>
+      {/* insta */}
       <div style={{ position: "relative", width: "400px", height: "700px" }}>
         {/* <img
           src={IphoneImage}
