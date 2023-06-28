@@ -16,6 +16,7 @@ import PlayerInfoCard from "../components/Chart/PlayerInfoCard";
 const Datas = () => {
   const [range, setRange] = useState(RangeEnum.육개월);
   const [data, setData] = useState<OriginData[]>([]);
+  const [rainyData, setRainyData] = useState<OriginData[]>([]);
   const [reservedData, setReservedData] = useState<OriginData[]>([]);
   const [myGameData, setMyGameData] = useState<OriginData[]>([]);
 
@@ -28,6 +29,14 @@ const Datas = () => {
       name: name ? name : undefined,
     });
     setData(myData);
+
+    setRainyData(
+      getData({
+        startDate: makeRangeDate(range),
+        name: name ? name : undefined,
+        rainy: true,
+      })
+    );
 
     setReservedData(
       getData({
@@ -124,7 +133,12 @@ const Datas = () => {
         >
           {name && (
             <Card>
-              <PlayerInfoCard data={myGameData} range={range} name={name} />
+              <PlayerInfoCard
+                data={myGameData}
+                rainyData={rainyData}
+                range={range}
+                name={name}
+              />
             </Card>
           )}
           {range !== RangeEnum.일개월 && (
