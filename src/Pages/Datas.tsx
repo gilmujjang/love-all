@@ -12,6 +12,7 @@ import { getRangeDisplayName, makeRangeDate } from "../utils/utils";
 import { ThemeColor } from "../assets/constants";
 import BestPartnerChart from "../components/Chart/BestPartnerChart";
 import PlayerInfoCard from "../components/Chart/PlayerInfoCard";
+import WeekChart from "../components/Chart/WeekChard";
 
 const Datas = () => {
   const [range, setRange] = useState(RangeEnum.육개월);
@@ -168,6 +169,9 @@ const Datas = () => {
               <BestPartnerChart data={myGameData} name={name} />
             </Card>
           )}
+          <Card>
+            <WeekChart data={data} />
+          </Card>
         </div>
       </div>
       {/* insta */}

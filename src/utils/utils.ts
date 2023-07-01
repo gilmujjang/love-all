@@ -63,6 +63,26 @@ export const makeCourtColor = (court: string) => {
   }
 };
 
+export const makeWeekColor = (day: string) => {
+  switch (day) {
+    case "월":
+      return "#F5C324";
+    case "화":
+      return "#CBB4F4";
+    case "수":
+      return "#33BB33";
+    case "목":
+      return "#FF8506";
+    case "금":
+      return "#0013F5";
+    case "토":
+      return "#7406FD";
+    case "일":
+    default:
+      return "#FF2400";
+  }
+};
+
 export const checkEnter = (e: string) => {
   if (e === "Enter") {
     return true;
