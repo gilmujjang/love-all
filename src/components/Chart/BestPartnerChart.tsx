@@ -79,7 +79,7 @@ const BestPartnerChart = ({ data, name }: Props) => {
             textAlign: "center",
           }}
         >
-          {(100 * (courtCount[rank].value / sum)).toFixed(1)}%
+          {(100 * (courtCount[rank]?.value / sum)).toFixed(1)}%
         </div>
       </div>
     );
