@@ -13,6 +13,7 @@ import { ThemeColor } from "../assets/constants";
 import BestPartnerChart from "../components/Chart/BestPartnerChart";
 import PlayerInfoCard from "../components/Chart/PlayerInfoCard";
 import WeekChart from "../components/Chart/WeekChard";
+import LoveAllInfoCard from "../components/Chart/LoveAllInfoCard";
 
 const Datas = () => {
   const [range, setRange] = useState(RangeEnum.육개월);
@@ -54,6 +55,86 @@ const Datas = () => {
     );
   }, [range, name]);
 
+  const renderCard = () => {
+    if (name) {
+      return (
+        <div
+          style={{
+            width: "100%",
+            maxWidth: 1080,
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
+          <Card>
+            <PlayerInfoCard
+              data={myGameData}
+              rainyData={rainyData}
+              range={range}
+              name={name}
+            />
+          </Card>
+          {range !== RangeEnum.일개월 && (
+            <Card>
+              <ActiveChart
+                data={data}
+                reservedData={reservedData}
+                name={name}
+              />
+            </Card>
+          )}
+          <Card>
+            <CourtChart data={data} />
+          </Card>
+          <Card>
+            <BestPartnerChart data={myGameData} name={name} />
+          </Card>
+          <Card>
+            <WeekChart data={data} />
+          </Card>
+        </div>
+      );
+    } else {
+      return (
+        <div
+          style={{
+            width: "100%",
+            maxWidth: 1080,
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
+          {range !== RangeEnum.일개월 && (
+            <Card>
+              <ActiveChart
+                data={data}
+                reservedData={reservedData}
+                name={name}
+              />
+            </Card>
+          )}
+          <Card>
+            <CourtChart data={data} />
+          </Card>
+          <Card>
+            <PlayerChart data={data} />
+          </Card>
+          <Card>
+            <ReserveChart data={reservedData} />
+          </Card>
+          <Card>
+            <WeekChart data={data} />
+          </Card>
+          <Card>
+            <LoveAllInfoCard data={data} rainyData={rainyData} />
+          </Card>
+        </div>
+      );
+    }
+  };
+
   return (
     <div
       style={{
@@ -65,7 +146,7 @@ const Datas = () => {
     >
       <div
         style={{
-          margin: "0px 20px",
+          margin: "0px 20px 20px 20px",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -123,56 +204,7 @@ const Datas = () => {
           </div>
         </div>
         {/* contents */}
-        <div
-          style={{
-            width: "100%",
-            maxWidth: 1080,
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-          }}
-        >
-          {name && (
-            <Card>
-              <PlayerInfoCard
-                data={myGameData}
-                rainyData={rainyData}
-                range={range}
-                name={name}
-              />
-            </Card>
-          )}
-          {range !== RangeEnum.일개월 && (
-            <Card>
-              <ActiveChart
-                data={data}
-                reservedData={reservedData}
-                name={name}
-              />
-            </Card>
-          )}
-          <Card>
-            <CourtChart data={data} />
-          </Card>
-          {!name && (
-            <Card>
-              <PlayerChart data={data} />
-            </Card>
-          )}
-          {!name && (
-            <Card>
-              <ReserveChart data={reservedData} />
-            </Card>
-          )}
-          {name && (
-            <Card>
-              <BestPartnerChart data={myGameData} name={name} />
-            </Card>
-          )}
-          <Card>
-            <WeekChart data={data} />
-          </Card>
-        </div>
+        {renderCard()}
       </div>
       {/* insta */}
       <div style={{ position: "relative", width: "400px", height: "700px" }}>
