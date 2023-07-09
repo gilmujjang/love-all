@@ -11,6 +11,10 @@ import { create } from "zustand";
 import { auth } from "../Firebase";
 
 export interface IAuthStore {
+  isManager: boolean;
+  setIsManager: (value: boolean) => void;
+  isAdmin: boolean;
+  setIsAdmin: (value: boolean) => void;
   user: User | null;
   setUser: (newUser: User | null) => void;
   autoLogin: (auth: Auth) => void;
@@ -19,6 +23,10 @@ export interface IAuthStore {
 }
 
 export const authStore = create<IAuthStore>((set) => ({
+  isManager: false,
+  setIsManager: (value: boolean) => set({ isManager: value }),
+  isAdmin: false,
+  setIsAdmin: (value: boolean) => set({ isAdmin: value }),
   user: null,
   setUser: (newUser: User | null) => set({ user: newUser }),
 

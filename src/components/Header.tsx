@@ -2,14 +2,14 @@ import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { SkyBlue, ThemeColor } from "../assets/constants";
 import styled from "styled-components";
-import { authStore } from "../store";
+import { authStore } from "../store/authStore";
 import { BoxShadow } from "../utils/styled";
 import { auth } from "../Firebase";
 import googleImage from "../assets/images/googleLogin.png";
 import NoProfileImage from "../assets/images/noProfileImage.png";
 
 const Header = () => {
-  const { user, handleGoogleLogin, handleLogout } = authStore();
+  const { user, isManager, handleGoogleLogin, handleLogout } = authStore();
   const [menuMore, setMenuMore] = useState(false);
 
   return (
@@ -41,6 +41,7 @@ const Header = () => {
             <DisplayName>{user.displayName}님</DisplayName>
             {menuMore && (
               <MenuWrapper>
+                {isManager && <MenuNavLink to={"/admin"}>어드민</MenuNavLink>}
                 <Menu onClick={() => handleLogout(auth)}>로그아웃</Menu>
               </MenuWrapper>
             )}
@@ -104,6 +105,17 @@ const MenuWrapper = styled.ul`
 `;
 
 const Menu = styled.li`
+  width: 94px;
+  background-color: white;
+  border-top: 1px solid lightgray;
+  padding: 4px 8px;
+  &:hover {
+    background-color: whitesmoke;
+  }
+`;
+
+const MenuNavLink = styled(NavLink)`
+  display: block;
   width: 94px;
   background-color: white;
   border-top: 1px solid lightgray;
