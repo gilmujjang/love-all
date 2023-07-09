@@ -5,7 +5,7 @@ import {
   compareZero,
   countDataMonthly,
   sortDataByKey,
-} from "../../utils/api";
+} from "../../utils/data";
 import {
   registerables,
   Chart as ChartJS,

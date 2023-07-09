@@ -1,5 +1,5 @@
 import { DataEnum, OriginData, RangeEnum } from "../../types";
-import { countData, countPlayTimeData } from "../../utils/api";
+import { countData, countPlayTimeData } from "../../utils/data";
 import { getRangeDisplayName } from "../../utils/utils";
 
 interface Props {

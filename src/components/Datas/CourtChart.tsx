@@ -1,6 +1,8 @@
+/* eslint-disable */
+
 import { Doughnut } from "react-chartjs-2";
 import { DataEnum, OriginData } from "../../types";
-import { countData, sortDataByValue } from "../../utils/api";
+import { countData, sortDataByValue } from "../../utils/data";
 import {
   Chart as ChartJS,
   Title,
@@ -11,7 +13,7 @@ import {
   registerables,
 } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
-import { makeWeekColor } from "../../utils/utils";
+import { makeCourtColor } from "../../utils/utils";
 
 ChartJS.register(
   ChartDataLabels,
@@ -27,17 +29,26 @@ interface Props {
   data: OriginData[];
 }
 
-const WeekChart = ({ data }: Props) => {
-  const weekData = sortDataByValue(countData(data, DataEnum.요일));
+const MAX = 8;
 
-  const labels = [...weekData.map((item) => item.key + " " + item.value)];
+const CourtChart = ({ data }: Props) => {
+  const countedData = sortDataByValue(countData(data, DataEnum.장소));
+  const courtCount = countedData.splice(0, MAX);
+  const etcCount = countedData
+    .splice(MAX, countedData.length - 1)
+    .reduce((sum, a) => sum + a.value, 0);
+  if (etcCount) courtCount.push({ key: "기타", value: etcCount });
+
+  const labels = [...courtCount.map((item) => item.key + " " + item.value)];
 
   const dataSet = {
     labels: labels,
     datasets: [
       {
-        backgroundColor: [...weekData.map((item) => makeWeekColor(item.key))],
-        data: [...weekData.map((item) => item.value)],
+        backgroundColor: [
+          ...courtCount.map((item) => makeCourtColor(item.key)),
+        ],
+        data: [...courtCount.map((item) => item.value)],
         datalabels: {
           color: "white",
         },
@@ -56,7 +67,7 @@ const WeekChart = ({ data }: Props) => {
   return (
     <div style={{ display: "flex", width: "100%", height: "100%" }}>
       <span style={{ whiteSpace: "nowrap", fontWeight: "bold", fontSize: 18 }}>
-        요일 비율👨‍💻
+        코트장 비율👨‍💻
       </span>
       <div style={{ width: "100%", height: "100%" }}>
         <Doughnut data={dataSet} options={options} />
@@ -65,4 +76,4 @@ const WeekChart = ({ data }: Props) => {
   );
 };
 
-export default WeekChart;
+export default CourtChart;
