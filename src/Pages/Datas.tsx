@@ -7,7 +7,7 @@ import PlayerChart from "../components/Chart/PlayerChart";
 import ReserveChart from "../components/Chart/ReserveChart";
 import SearchInput from "../components/SearchInput";
 import { RangeEnum, OriginData } from "../types";
-import { getData, getMyGameData } from "../utils/api";
+import { getData, getMyGameData } from "../utils/data";
 import { getRangeDisplayName, makeRangeDate } from "../utils/utils";
 import { ThemeColor } from "../assets/constants";
 import BestPartnerChart from "../components/Chart/BestPartnerChart";

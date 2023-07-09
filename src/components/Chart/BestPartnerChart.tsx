@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 import { DataEnum, OriginData } from "../../types";
-import { countData, sortDataByValue } from "../../utils/api";
+import { countData, sortDataByValue } from "../../utils/data";
 
 interface Props {
   data: OriginData[];

@@ -1,6 +1,6 @@
 import { Doughnut } from "react-chartjs-2";
 import { DataEnum, OriginData } from "../../types";
-import { countData, sortDataByValue } from "../../utils/api";
+import { countData, sortDataByValue } from "../../utils/data";
 import {
   Chart as ChartJS,
   Title,

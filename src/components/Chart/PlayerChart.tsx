@@ -1,6 +1,10 @@
 import { Bar } from "react-chartjs-2";
 import { DataEnum, OriginData } from "../../types";
-import { countData, countPlayTimeData, sortDataByValue } from "../../utils/api";
+import {
+  countData,
+  countPlayTimeData,
+  sortDataByValue,
+} from "../../utils/data";
 import {
   registerables,
   Chart as ChartJS,
