@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
 import Button from "../components/Button";
 import Card from "../components/Card";
-import ActiveChart from "../components/Chart/ActiveChart";
-import CourtChart from "../components/Chart/CourtChart";
-import PlayerChart from "../components/Chart/PlayerChart";
-import ReserveChart from "../components/Chart/ReserveChart";
+import ActiveChart from "../components/Datas/ActiveChart";
+import CourtChart from "../components/Datas/CourtChart";
+import PlayerChart from "../components/Datas/PlayerChart";
+import ReserveChart from "../components/Datas/ReserveChart";
 import SearchInput from "../components/SearchInput";
 import { RangeEnum, OriginData } from "../types";
 import { getData, getMyGameData } from "../utils/data";
 import { getRangeDisplayName, makeRangeDate } from "../utils/utils";
 import { ThemeColor } from "../assets/constants";
-import BestPartnerChart from "../components/Chart/BestPartnerChart";
-import PlayerInfoCard from "../components/Chart/PlayerInfoCard";
-import WeekChart from "../components/Chart/WeekChard";
-import LoveAllInfoCard from "../components/Chart/LoveAllInfoCard";
+import BestPartnerChart from "../components/Datas/BestPartnerChart";
+import PlayerInfoCard from "../components/Datas/PlayerInfoCard";
+import WeekChart from "../components/Datas/WeekChard";
+import LoveAllInfoCard from "../components/Datas/LoveAllInfoCard";
 
 const Datas = () => {
   const [range, setRange] = useState(RangeEnum.육개월);
