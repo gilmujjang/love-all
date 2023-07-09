@@ -1,5 +1,6 @@
 import { CSSProperties, ReactNode } from "react";
 import { ThemeColor } from "../assets/constants";
+import { BoxShadow } from "../utils/styled";
 
 interface Props {
   width?: number;
@@ -16,7 +17,7 @@ const Card = ({ width = 520, height = 320, styles, children }: Props) => {
         color: ThemeColor,
         backgroundColor: "white",
         borderRadius: 8,
-        boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
+        boxShadow: BoxShadow,
         padding: 16,
         width: width,
         height: height,

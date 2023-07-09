@@ -1,8 +1,17 @@
+import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { SkyBlue, ThemeColor } from "../assets/constants";
 import styled from "styled-components";
+import { authStore } from "../store";
+import { BoxShadow } from "../utils/styled";
+import { auth } from "../Firebase";
+import googleImage from "../assets/images/googleLogin.png";
+import NoProfileImage from "../assets/images/noProfileImage.png";
 
 const Header = () => {
+  const { user, handleGoogleLogin, handleLogout } = authStore();
+  const [menuMore, setMenuMore] = useState(false);
+
   return (
     <header
       style={{
@@ -19,7 +28,26 @@ const Header = () => {
       >
         월간 러브올
       </Link>
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        {user ? (
+          <ProfileWrapper
+            style={{
+              position: "relative",
+              display: "flex",
+            }}
+            onClick={() => setMenuMore(!menuMore)}
+          >
+            <Profile src={user.photoURL || NoProfileImage} />
+            <DisplayName>{user.displayName}님</DisplayName>
+            {menuMore && (
+              <MenuWrapper>
+                <Menu onClick={() => handleLogout(auth)}>로그아웃</Menu>
+              </MenuWrapper>
+            )}
+          </ProfileWrapper>
+        ) : (
+          <GoogleLogin onClick={handleGoogleLogin} />
+        )}
         <SubMenu to={"/"}>데이터 분석</SubMenu>
         <SubMenu to={"/insta"}>인스타</SubMenu>
       </div>
@@ -36,6 +64,52 @@ const SubMenu = styled(NavLink)`
   &.active {
     color: ${ThemeColor};
     font-weight: bold;
+  }
+`;
+
+const GoogleLogin = styled.div`
+  background-image: url(${googleImage});
+  background-size: contain;
+  width: 144px;
+  height: 36px;
+  cursor: pointer;
+`;
+
+const ProfileWrapper = styled.div`
+  cursor: pointer;
+`;
+
+const Profile = styled.img`
+  width: 32px;
+  height: 32px;
+  border-radius: 32px;
+`;
+
+const DisplayName = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: 4px;
+  font-weight: 600;
+`;
+
+const MenuWrapper = styled.ul`
+  position: absolute;
+  top: 40px;
+  left: 0px;
+  border: 1px solid lightgray;
+  border-top: none;
+  border-radios: 8px;
+  box-shadow: ${BoxShadow};
+  z-index: 1;
+`;
+
+const Menu = styled.li`
+  width: 94px;
+  background-color: white;
+  border-top: 1px solid lightgray;
+  padding: 4px 8px;
+  &:hover {
+    background-color: whitesmoke;
   }
 `;
 

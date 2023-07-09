@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import SearchIcon from "../assets/Icon/SearchIcon";
 import { checkEnter } from "../utils/utils";
+import { BoxShadow } from "../utils/styled";
 
 interface Props {
   text: string;
@@ -31,7 +32,7 @@ const SearchInput = ({ text, setText, onClick }: Props) => {
           padding: "4px 28px 4px 12px",
           borderRadius: 16,
           border: "1px solid lightgray",
-          boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
+          boxShadow: BoxShadow,
           outline: "blue",
         }}
       />

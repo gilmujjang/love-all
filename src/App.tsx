@@ -1,24 +1,16 @@
-import "./App.css";
-import Datas from "./Pages/Datas";
-import Header from "./components/Header";
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { auth } from "./Firebase";
-import { useState } from "react";
-import { GoogleAuthProvider, User, signInWithPopup } from "firebase/auth";
+import { authStore } from "./store";
+import Header from "./components/Header";
+import Datas from "./Pages/Datas";
 
 const App = () => {
-  const [userData, setUserData] = useState<User | null>(null);
+  const { autoLogin } = authStore();
 
-  const handleGoogleLogin = () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
-      .then((data) => {
-        setUserData(data.user);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  useEffect(() => {
+    autoLogin(auth);
+  }, [autoLogin]);
 
   return (
     <div
@@ -29,7 +21,6 @@ const App = () => {
       }}
     >
       <Header />
-      <button onClick={handleGoogleLogin}>Login</button>
       <Routes>
         <Route path="/" element={<Datas />} />
       </Routes>
