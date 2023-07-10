@@ -105,3 +105,29 @@ export const getRangeDisplayName = (range: RangeEnum) => {
       return "1년";
   }
 };
+
+export const getDuration = (start: string, end?: string) => {
+  const startDate = new Date(start);
+  const endDate = end ? new Date(end) : new Date();
+
+  const duration = Math.floor(
+    (endDate.getTime() - startDate.getTime()) / 60000
+  );
+
+  if (duration < 60) return `${duration / 60 / 24}분`;
+  if (duration < 60 * 24) return `${Math.floor(duration / 60)}시간`;
+  if (duration < 60 * 24 * 30) return `${Math.floor(duration / 60 / 24)}일`;
+  if (duration < 60 * 24 * 365)
+    return `${Math.floor(duration / 60 / 24 / 30)}개월`;
+  return `${Math.floor(duration / 60 / 24 / 365)}년`;
+};
+
+export const getAge = (start: string) => {
+  const startDate = new Date(start);
+  const endDate = new Date();
+
+  const duration = Math.floor(
+    (endDate.getTime() - startDate.getTime()) / 60000
+  );
+  return `${Math.floor(duration / 60 / 24 / 365)}`;
+};
