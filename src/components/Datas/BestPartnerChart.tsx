@@ -66,9 +66,11 @@ const BestPartnerChart = ({ data, name, onSubmit }: Props) => {
             marginBottom: 4,
             cursor: "pointer",
           }}
-          onClick={() => onSubmit(courtCount[rank].key)}
+          onClick={() =>
+            courtCount[rank]?.key && onSubmit(courtCount[rank].key)
+          }
         >
-          {courtCount[rank].key + " " + courtCount[rank].value + "회"}
+          {courtCount[rank]?.key + " " + courtCount[rank]?.value + "회"}
         </div>
         <div
           style={{
