@@ -76,6 +76,7 @@ const SearchInput = ({
           {autoTargetNameList.map((autoTargetName) => {
             return (
               <SearchItem
+                key={autoTargetName}
                 isSelected={seleted === autoTargetName}
                 onMouseEnter={() => {
                   setSelected(autoTargetName);
