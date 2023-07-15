@@ -83,14 +83,6 @@ export const makeWeekColor = (day: string) => {
   }
 };
 
-export const checkEnter = (e: string) => {
-  if (e === "Enter") {
-    return true;
-  } else {
-    return false;
-  }
-};
-
 export const getRangeDisplayName = (range: RangeEnum) => {
   switch (range) {
     case RangeEnum.전체:

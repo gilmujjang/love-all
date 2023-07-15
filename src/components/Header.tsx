@@ -41,8 +41,13 @@ const Header = () => {
             <DisplayName>{user.displayName}님</DisplayName>
             {menuMore && (
               <MenuWrapper>
+                <Menu
+                  style={{ borderTop: "none" }}
+                  onClick={() => handleLogout(auth)}
+                >
+                  로그아웃
+                </Menu>
                 {isManager && <MenuNavLink to={"/admin"}>어드민</MenuNavLink>}
-                <Menu onClick={() => handleLogout(auth)}>로그아웃</Menu>
               </MenuWrapper>
             )}
           </ProfileWrapper>
@@ -50,7 +55,6 @@ const Header = () => {
           <GoogleLogin onClick={handleGoogleLogin} />
         )}
         <SubMenu to={"/"}>데이터 분석</SubMenu>
-        <SubMenu to={"/insta"}>인스타</SubMenu>
       </div>
     </header>
   );
@@ -98,8 +102,9 @@ const MenuWrapper = styled.ul`
   top: 40px;
   left: 0px;
   border: 1px solid lightgray;
-  border-top: none;
-  border-radios: 8px;
+  border-radius: 8px;
+  padding: 4px 0px;
+  background-color: white;
   box-shadow: ${BoxShadow};
   z-index: 1;
 `;

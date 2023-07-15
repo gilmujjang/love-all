@@ -6,11 +6,12 @@ import { countData, sortDataByValue } from "../../utils/data";
 interface Props {
   data: OriginData[];
   name: string;
+  onSubmit: (value: string) => void;
 }
 
 const MAX = 3;
 
-const BestPartnerChart = ({ data, name }: Props) => {
+const BestPartnerChart = ({ data, name, onSubmit }: Props) => {
   const countedData = countData(data, DataEnum.이름);
   delete countedData[name];
   const sortedCountedData = sortDataByValue(countedData);
@@ -20,9 +21,6 @@ const BestPartnerChart = ({ data, name }: Props) => {
     .reduce((sum, a) => sum + a.value, 0);
   if (etcCount) courtCount.push({ key: "기타", value: etcCount });
 
-  const labels = [
-    ...courtCount.map((item) => item.key + " " + item.value + "회"),
-  ];
   const sum = courtCount.reduce(
     (total, value) => (total += Number(value.value)),
     0
@@ -66,9 +64,11 @@ const BestPartnerChart = ({ data, name }: Props) => {
             color: makeFontColor(),
             fontWeight: "bold",
             marginBottom: 4,
+            cursor: "pointer",
           }}
+          onClick={() => onSubmit(courtCount[rank].key)}
         >
-          {labels[rank]}
+          {courtCount[rank].key + " " + courtCount[rank].value + "회"}
         </div>
         <div
           style={{
@@ -99,7 +99,6 @@ const BestPartnerChart = ({ data, name }: Props) => {
         베스트 파트너😋
       </div>
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <div></div>
         <RankBar rank={1} />
         <RankBar rank={0} />
         <RankBar rank={2} />
