@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 import { Doughnut } from "react-chartjs-2";
-import { DataEnum, OriginData } from "../../types";
+import { DataEnum } from "../../types";
 import { countData, sortDataByValue } from "../../utils/data";
 import {
   Chart as ChartJS,
@@ -14,6 +14,7 @@ import {
 } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { makeCourtColor } from "../../utils/utils";
+import { gameDataStore } from "../../store/gameDataStore";
 
 ChartJS.register(
   ChartDataLabels,
@@ -25,14 +26,11 @@ ChartJS.register(
   ...registerables
 );
 
-interface Props {
-  data: OriginData[];
-}
-
 const MAX = 8;
 
-const CourtChart = ({ data }: Props) => {
-  const countedData = sortDataByValue(countData(data, DataEnum.장소));
+const CourtChart = () => {
+  const { totalData } = gameDataStore();
+  const countedData = sortDataByValue(countData(totalData, DataEnum.장소));
   const courtCount = countedData.splice(0, MAX);
   const etcCount = countedData
     .splice(MAX, countedData.length - 1)

@@ -1,20 +1,15 @@
-import { DataEnum, OriginData, RangeEnum } from "../../types";
+import { gameDataStore } from "../../store/gameDataStore";
+import { DataEnum, RangeEnum } from "../../types";
 import { countData, countPlayTimeData } from "../../utils/data";
 import { getRangeDisplayName } from "../../utils/utils";
 
-interface Props {
-  data: OriginData[];
-  rainyData: OriginData[];
-  range: RangeEnum;
-  name: string;
-}
-
-const PlayerInfoCard = ({ data, rainyData, range, name }: Props) => {
-  const playNum = countData(data, DataEnum.이름)[name];
-  const playTimeData = countPlayTimeData(data, DataEnum.이름);
-  const playTime = playTimeData[name] || 0;
+const PlayerInfoCard = () => {
+  const { targetName, range, myGameData, rainyData } = gameDataStore();
+  const playNum = countData(myGameData, DataEnum.이름)[targetName];
+  const playTimeData = countPlayTimeData(myGameData, DataEnum.이름);
+  const playTime = playTimeData[targetName] || 0;
   const haveRelation = Object.keys(playTimeData).length || 0;
-  const rainyNum = countData(rainyData, DataEnum.이름)[name] || 0;
+  const rainyNum = countData(rainyData, DataEnum.이름)[targetName] || 0;
 
   const Content = ({ title, text }: { title: string; text: string }) => {
     return (

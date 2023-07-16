@@ -1,5 +1,4 @@
 import { Line } from "react-chartjs-2";
-import { OriginData } from "../../types";
 import {
   checkZero,
   compareZero,
@@ -16,6 +15,7 @@ import {
   CategoryScale,
 } from "chart.js";
 import { SkyBlue, ThemeColor } from "../../assets/constants";
+import { gameDataStore } from "../../store/gameDataStore";
 
 ChartJS.register(
   Title,
@@ -26,14 +26,9 @@ ChartJS.register(
   ...registerables
 );
 
-interface Props {
-  data: OriginData[];
-  reservedData: OriginData[];
-  name: string;
-}
-
-const ActiveChart = ({ data, reservedData, name }: Props) => {
-  const countedDataMonthly = countDataMonthly(data);
+const ActiveChart = () => {
+  const { totalData, reservedData, targetName } = gameDataStore();
+  const countedDataMonthly = countDataMonthly(totalData);
   const playTimeCount = sortDataByKey(checkZero(countedDataMonthly));
 
   const reservedCount = sortDataByKey(
@@ -62,7 +57,7 @@ const ActiveChart = ({ data, reservedData, name }: Props) => {
     ],
   };
 
-  if (name)
+  if (targetName)
     dataSet.datasets.push({
       type: "bar",
       label: "예약횟수👍",

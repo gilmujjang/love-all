@@ -1,19 +1,15 @@
 /* eslint-disable */
 
-import { DataEnum, OriginData } from "../../types";
+import { gameDataStore } from "../../store/gameDataStore";
+import { DataEnum } from "../../types";
 import { countData, sortDataByValue } from "../../utils/data";
-
-interface Props {
-  data: OriginData[];
-  name: string;
-  onSubmit: (value: string) => void;
-}
 
 const MAX = 3;
 
-const BestPartnerChart = ({ data, name, onSubmit }: Props) => {
-  const countedData = countData(data, DataEnum.이름);
-  delete countedData[name];
+const BestPartnerChart = () => {
+  const { myGameData, targetName, setTargetName } = gameDataStore();
+  const countedData = countData(myGameData, DataEnum.이름);
+  delete countedData[targetName];
   const sortedCountedData = sortDataByValue(countedData);
   const courtCount = sortedCountedData.splice(0, MAX);
   const etcCount = sortedCountedData
@@ -67,7 +63,7 @@ const BestPartnerChart = ({ data, name, onSubmit }: Props) => {
             cursor: "pointer",
           }}
           onClick={() =>
-            courtCount[rank]?.key && onSubmit(courtCount[rank].key)
+            courtCount[rank]?.key && setTargetName(courtCount[rank].key)
           }
         >
           {courtCount[rank]?.key + " " + courtCount[rank]?.value + "회"}
