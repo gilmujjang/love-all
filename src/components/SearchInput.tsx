@@ -5,10 +5,12 @@ import styled from "styled-components";
 import { gameDataStore } from "../store/gameDataStore";
 
 const SearchInput = () => {
-  const { targetName, setTargetName, playerList } = gameDataStore();
+  const { searchTarget, setSearchTarget, playerList } = gameDataStore();
   const [autoTargetNameList, setAutoTargetNameList] = useState<string[]>([]);
   const [input, setInput] = useState<string>("");
   const [seleted, setSelected] = useState<string>("");
+
+  const { targetName } = searchTarget;
 
   useEffect(() => {
     setInput("");
@@ -43,7 +45,7 @@ const SearchInput = () => {
 
     switch (e.key) {
       case "Enter":
-        setTargetName(seleted);
+        setSearchTarget({ targetType: "player", targetName: seleted });
         return;
       case "ArrowUp":
         if (targetIndex === 0)
@@ -70,7 +72,9 @@ const SearchInput = () => {
     >
       <SearchIcon
         style={{ position: "absolute", right: "8px", cursor: "pointer" }}
-        onClick={() => setTargetName(seleted)}
+        onClick={() =>
+          setSearchTarget({ targetType: "player", targetName: seleted })
+        }
       />
       <Input
         value={input}
@@ -95,7 +99,10 @@ const SearchInput = () => {
                   setSelected(autoTargetName);
                 }}
                 onClick={() => {
-                  setTargetName(autoTargetName);
+                  setSearchTarget({
+                    targetType: "player",
+                    targetName: seleted,
+                  });
                 }}
               >
                 {autoTargetName}

@@ -15,10 +15,11 @@ import PlayerInfoCard from "../components/Datas/PlayerInfoCard";
 import WeekChart from "../components/Datas/WeekChard";
 import LoveAllInfoCard from "../components/Datas/LoveAllInfoCard";
 import { gameDataStore } from "../store/gameDataStore";
+import { GROUP_NAME } from "../constants";
 
 const Datas = () => {
   const {
-    targetName,
+    searchTarget,
     range,
     setRange,
     setTotalData,
@@ -27,6 +28,7 @@ const Datas = () => {
     setRainyData,
     setPlayerList,
   } = gameDataStore();
+  const { targetType, targetName } = searchTarget;
 
   useEffect(() => {
     const totalData = getData({});
@@ -66,7 +68,7 @@ const Datas = () => {
   }, [range, targetName]);
 
   const renderCard = () => {
-    if (targetName) {
+    if (targetType === "player") {
       return (
         <div
           style={{
@@ -160,7 +162,7 @@ const Datas = () => {
               color: ThemeColor,
             }}
           >
-            {targetName ? targetName : "러브올"}
+            {targetName ? targetName : GROUP_NAME}
           </span>
           <div style={{ display: "flex" }}>
             <Button

@@ -7,7 +7,8 @@ import { countData, sortDataByValue } from "../../utils/data";
 const MAX = 3;
 
 const BestPartnerChart = () => {
-  const { myGameData, targetName, setTargetName } = gameDataStore();
+  const { myGameData, searchTarget, setSearchTarget } = gameDataStore();
+  const { targetName } = searchTarget;
   const countedData = countData(myGameData, DataEnum.이름);
   delete countedData[targetName];
   const sortedCountedData = sortDataByValue(countedData);
@@ -63,7 +64,11 @@ const BestPartnerChart = () => {
             cursor: "pointer",
           }}
           onClick={() =>
-            courtCount[rank]?.key && setTargetName(courtCount[rank].key)
+            courtCount[rank]?.key &&
+            setSearchTarget({
+              targetType: "player",
+              targetName: courtCount[rank].key,
+            })
           }
         >
           {courtCount[rank]?.key + " " + courtCount[rank]?.value + "회"}

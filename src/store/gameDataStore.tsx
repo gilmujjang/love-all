@@ -1,9 +1,14 @@
 import { create } from "zustand";
 import { OriginData, RangeEnum } from "../types";
 
-interface IGameDataStore {
+interface ITargetType {
+  targetType: "player" | "court" | null;
   targetName: string;
-  setTargetName: (data: string) => void;
+}
+
+interface IGameDataStore {
+  searchTarget: ITargetType;
+  setSearchTarget: (data: ITargetType) => void;
   range: RangeEnum;
   setRange: (data: RangeEnum) => void;
   totalData: OriginData[];
@@ -19,8 +24,8 @@ interface IGameDataStore {
 }
 
 export const gameDataStore = create<IGameDataStore>((set) => ({
-  targetName: "",
-  setTargetName: (data: string) => set({ targetName: data }),
+  searchTarget: { targetType: null, targetName: "" },
+  setSearchTarget: (data: ITargetType) => set({ searchTarget: data }),
   range: RangeEnum.육개월,
   setRange: (data: RangeEnum) => set({ range: data }),
   totalData: [],

@@ -27,7 +27,8 @@ ChartJS.register(
 );
 
 const ActiveChart = () => {
-  const { totalData, reservedData, targetName } = gameDataStore();
+  const { totalData, reservedData, searchTarget } = gameDataStore();
+  const { targetName } = searchTarget;
   const countedDataMonthly = countDataMonthly(totalData);
   const playTimeCount = sortDataByKey(checkZero(countedDataMonthly));
 

@@ -4,7 +4,8 @@ import { countData, countPlayTimeData } from "../../utils/data";
 import { getRangeDisplayName } from "../../utils/utils";
 
 const PlayerInfoCard = () => {
-  const { targetName, range, myGameData, rainyData } = gameDataStore();
+  const { searchTarget, range, myGameData, rainyData } = gameDataStore();
+  const { targetName } = searchTarget;
   const playNum = countData(myGameData, DataEnum.이름)[targetName];
   const playTimeData = countPlayTimeData(myGameData, DataEnum.이름);
   const playTime = playTimeData[targetName] || 0;
