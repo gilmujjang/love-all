@@ -45,7 +45,10 @@ const SearchInput = () => {
 
     switch (e.key) {
       case "Enter":
-        setSearchTarget({ targetType: "player", targetName: seleted });
+        setSearchTarget({
+          targetType: seleted ? "player" : null,
+          targetName: seleted,
+        });
         return;
       case "ArrowUp":
         if (targetIndex === 0)
