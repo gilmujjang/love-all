@@ -123,3 +123,12 @@ export const getAge = (start: string) => {
   );
   return `${Math.floor(duration / 60 / 24 / 365)}`;
 };
+
+export const makeRandomString = (len: number) => {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let str = '';
+  for(let i = 0; i < len; i++){
+    str += chars.charAt(Math.floor(Math.random()*chars.length));
+  }
+  return str;
+}

@@ -1,5 +1,5 @@
 import { Bar } from "react-chartjs-2";
-import { DataEnum, OriginData } from "../../types";
+import { DataEnum } from "../../types";
 import {
   countData,
   countPlayTimeData,
@@ -17,6 +17,7 @@ import {
 import { ThemeColor } from "../../assets/constants";
 import { useState } from "react";
 import Radiobutton from "../RadioButton";
+import { gameDataStore } from "../../store/gameDataStore";
 
 ChartJS.register(
   Title,
@@ -27,28 +28,27 @@ ChartJS.register(
   ...registerables
 );
 
-interface Props {
-  data: OriginData[];
-}
-
 enum ChartType {
   count = 1,
   time = 2,
 }
 
-const PlayerChart = ({ data }: Props) => {
+const PlayerChart = () => {
+  const { totalData } = gameDataStore();
   const [chartType, setChartType] = useState(ChartType.count);
 
   const makePlayTimeCount = () => {
     switch (chartType) {
       case ChartType.count:
       default:
-        return sortDataByValue(countData(data, DataEnum.이름)).slice(0, 15);
-      case ChartType.time:
-        return sortDataByValue(countPlayTimeData(data, DataEnum.이름)).slice(
+        return sortDataByValue(countData(totalData, DataEnum.이름)).slice(
           0,
           15
         );
+      case ChartType.time:
+        return sortDataByValue(
+          countPlayTimeData(totalData, DataEnum.이름)
+        ).slice(0, 15);
     }
   };
 

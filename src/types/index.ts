@@ -56,3 +56,14 @@ export enum RangeEnum {
   일년 = "1year",
   전체 = "all",
 }
+
+export interface MemberDoc {
+  birthDay: string;
+  createdDate: string;
+  gender: "male" | "female";
+  isAdmin: boolean;
+  isManager: boolean;
+  joinDate: string;
+  name: string;
+  uid: string;
+}

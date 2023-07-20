@@ -1,22 +1,37 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import SearchIcon from "../assets/Icon/SearchIcon";
 import { BoxShadow } from "../utils/styled";
 import styled from "styled-components";
+import { gameDataStore } from "../store/gameDataStore";
 
-interface Props {
-  value: string;
-  setValue: Dispatch<SetStateAction<string>>;
-  onSubmit: (value: string) => void;
-  autoTargetNameList: string[];
-}
-
-const SearchInput = ({
-  value,
-  setValue,
-  onSubmit,
-  autoTargetNameList,
-}: Props) => {
+const SearchInput = () => {
+  const { searchTarget, setSearchTarget, playerList } = gameDataStore();
+  const [autoTargetNameList, setAutoTargetNameList] = useState<string[]>([]);
+  const [input, setInput] = useState<string>("");
   const [seleted, setSelected] = useState<string>("");
+
+  const { targetName } = searchTarget;
+
+  useEffect(() => {
+    setInput("");
+  }, [targetName]);
+
+  useEffect(() => {
+    if (input) {
+      const filtered = playerList.filter((player) => {
+        return player.toLowerCase().includes(input.toLowerCase());
+      });
+
+      const sorted = filtered.sort((a, b) => {
+        const startsWithA = a.toLowerCase().startsWith(input.toLowerCase());
+        const startsWithB = b.toLowerCase().startsWith(input.toLowerCase());
+        if (startsWithA && !startsWithB) return -1;
+        else if (!startsWithA && startsWithB) return 1;
+        else return 0;
+      });
+      setAutoTargetNameList(sorted.slice(0, 8));
+    } else setAutoTargetNameList([]);
+  }, [playerList, input]);
 
   useEffect(() => {
     if (autoTargetNameList.length) {
@@ -30,7 +45,10 @@ const SearchInput = ({
 
     switch (e.key) {
       case "Enter":
-        onSubmit(seleted);
+        setSearchTarget({
+          targetType: seleted ? "player" : null,
+          targetName: seleted,
+        });
         return;
       case "ArrowUp":
         if (targetIndex === 0)
@@ -57,12 +75,14 @@ const SearchInput = ({
     >
       <SearchIcon
         style={{ position: "absolute", right: "8px", cursor: "pointer" }}
-        onClick={() => onSubmit(seleted)}
+        onClick={() =>
+          setSearchTarget({ targetType: "player", targetName: seleted })
+        }
       />
       <Input
-        value={value}
+        value={input}
         onKeyDown={handleKey}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => setInput(e.target.value)}
         type="text"
       />
       {autoTargetNameList.length !== 0 && (
@@ -82,7 +102,10 @@ const SearchInput = ({
                   setSelected(autoTargetName);
                 }}
                 onClick={() => {
-                  onSubmit(autoTargetName);
+                  setSearchTarget({
+                    targetType: "player",
+                    targetName: seleted,
+                  });
                 }}
               >
                 {autoTargetName}

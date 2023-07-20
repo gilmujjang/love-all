@@ -1,12 +1,9 @@
-import { DataEnum, OriginData } from "../../types";
+import { gameDataStore } from "../../store/gameDataStore";
+import { DataEnum } from "../../types";
 import { countData, sortDataByValue } from "../../utils/data";
 
-interface Props {
-  data: OriginData[];
-  rainyData: OriginData[];
-}
-
-const LoveAllInfoCard = ({ rainyData }: Props) => {
+const LoveAllInfoCard = () => {
+  const { rainyData } = gameDataStore();
   const countRainyData = sortDataByValue(countData(rainyData, DataEnum.이름));
 
   return (

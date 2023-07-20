@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Button from "../components/Button";
 import Card from "../components/Card";
 import ActiveChart from "../components/Datas/ActiveChart";
@@ -6,7 +6,7 @@ import CourtChart from "../components/Datas/CourtChart";
 import PlayerChart from "../components/Datas/PlayerChart";
 import ReserveChart from "../components/Datas/ReserveChart";
 import SearchInput from "../components/SearchInput";
-import { RangeEnum, OriginData, DataEnum } from "../types";
+import { RangeEnum, DataEnum } from "../types";
 import { countData, getData, getMyGameData } from "../utils/data";
 import { getRangeDisplayName, makeRangeDate } from "../utils/utils";
 import { ThemeColor } from "../assets/constants";
@@ -14,31 +14,34 @@ import BestPartnerChart from "../components/Datas/BestPartnerChart";
 import PlayerInfoCard from "../components/Datas/PlayerInfoCard";
 import WeekChart from "../components/Datas/WeekChard";
 import LoveAllInfoCard from "../components/Datas/LoveAllInfoCard";
+import { gameDataStore } from "../store/gameDataStore";
+import { GROUP_NAME } from "../constants";
 
 const Datas = () => {
-  const [range, setRange] = useState(RangeEnum.육개월);
-  const [data, setData] = useState<OriginData[]>([]);
-  const [playerList, setPlayerList] = useState<string[]>([]);
-  const [rainyData, setRainyData] = useState<OriginData[]>([]);
-  const [reservedData, setReservedData] = useState<OriginData[]>([]);
-  const [myGameData, setMyGameData] = useState<OriginData[]>([]);
-
-  const [input, setInput] = useState<string>("");
-  const [autoTargetNameList, setAutoTargetNameList] = useState<string[]>([]);
-  const [targetName, setTargetName] = useState<string>("");
+  const {
+    searchTarget,
+    range,
+    setRange,
+    setTotalData,
+    setMyGameData,
+    setReservedData,
+    setRainyData,
+    setPlayerList,
+  } = gameDataStore();
+  const { targetType, targetName } = searchTarget;
 
   useEffect(() => {
     const totalData = getData({});
     const memberList = countData(totalData, DataEnum.이름);
     setPlayerList(Object.keys(memberList));
-  }, []);
+  }, [setPlayerList]);
 
   useEffect(() => {
     const myData = getData({
       startDate: makeRangeDate(range),
       name: targetName ? targetName : undefined,
     });
-    setData(myData);
+    setTotalData(myData);
 
     setRainyData(
       getData({
@@ -61,27 +64,11 @@ const Datas = () => {
         myPlayData: myData,
       })
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [range, targetName]);
 
-  useEffect(() => {
-    if (input) {
-      const filtered = playerList.filter((player) => {
-        return player.toLowerCase().includes(input.toLowerCase());
-      });
-
-      const sorted = filtered.sort((a, b) => {
-        const startsWithA = a.toLowerCase().startsWith(input.toLowerCase());
-        const startsWithB = b.toLowerCase().startsWith(input.toLowerCase());
-        if (startsWithA && !startsWithB) return -1;
-        else if (!startsWithA && startsWithB) return 1;
-        else return 0;
-      });
-      setAutoTargetNameList(sorted.slice(0, 8));
-    } else setAutoTargetNameList([]);
-  }, [playerList, input]);
-
   const renderCard = () => {
-    if (targetName) {
+    if (targetType === "player") {
       return (
         <div
           style={{
@@ -93,37 +80,21 @@ const Datas = () => {
           }}
         >
           <Card>
-            <PlayerInfoCard
-              data={myGameData}
-              rainyData={rainyData}
-              range={range}
-              name={targetName}
-            />
+            <PlayerInfoCard />
           </Card>
           {range !== RangeEnum.일개월 && (
             <Card>
-              <ActiveChart
-                data={data}
-                reservedData={reservedData}
-                name={targetName}
-              />
+              <ActiveChart />
             </Card>
           )}
           <Card>
-            <CourtChart data={data} />
+            <CourtChart />
           </Card>
           <Card>
-            <BestPartnerChart
-              data={myGameData}
-              name={targetName}
-              onSubmit={(value: string) => {
-                setInput("");
-                setTargetName(value);
-              }}
-            />
+            <BestPartnerChart />
           </Card>
           <Card>
-            <WeekChart data={data} />
+            <WeekChart />
           </Card>
         </div>
       );
@@ -140,27 +111,23 @@ const Datas = () => {
         >
           {range !== RangeEnum.일개월 && (
             <Card>
-              <ActiveChart
-                data={data}
-                reservedData={reservedData}
-                name={targetName}
-              />
+              <ActiveChart />
             </Card>
           )}
           <Card>
-            <CourtChart data={data} />
+            <CourtChart />
           </Card>
           <Card>
-            <PlayerChart data={data} />
+            <PlayerChart />
           </Card>
           <Card>
-            <ReserveChart data={reservedData} />
+            <ReserveChart />
           </Card>
           <Card>
-            <WeekChart data={data} />
+            <WeekChart />
           </Card>
           <Card>
-            <LoveAllInfoCard data={data} rainyData={rainyData} />
+            <LoveAllInfoCard />
           </Card>
         </div>
       );
@@ -195,7 +162,7 @@ const Datas = () => {
               color: ThemeColor,
             }}
           >
-            {targetName ? targetName : "러브올"}
+            {targetName ? targetName : GROUP_NAME}
           </span>
           <div style={{ display: "flex" }}>
             <Button
@@ -228,15 +195,7 @@ const Datas = () => {
             >
               {getRangeDisplayName(RangeEnum.전체)}
             </Button>
-            <SearchInput
-              value={input}
-              setValue={setInput}
-              onSubmit={(value: string) => {
-                setInput("");
-                setTargetName(value);
-              }}
-              autoTargetNameList={autoTargetNameList}
-            />
+            <SearchInput />
           </div>
         </div>
         {/* contents */}

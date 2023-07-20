@@ -1,5 +1,5 @@
 import { Doughnut } from "react-chartjs-2";
-import { DataEnum, OriginData } from "../../types";
+import { DataEnum } from "../../types";
 import { countData, sortDataByValue } from "../../utils/data";
 import {
   Chart as ChartJS,
@@ -12,6 +12,7 @@ import {
 } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { makeWeekColor } from "../../utils/utils";
+import { gameDataStore } from "../../store/gameDataStore";
 
 ChartJS.register(
   ChartDataLabels,
@@ -23,12 +24,10 @@ ChartJS.register(
   ...registerables
 );
 
-interface Props {
-  data: OriginData[];
-}
+const WeekChart = () => {
+  const { totalData } = gameDataStore();
 
-const WeekChart = ({ data }: Props) => {
-  const weekData = sortDataByValue(countData(data, DataEnum.요일));
+  const weekData = sortDataByValue(countData(totalData, DataEnum.요일));
 
   const labels = [...weekData.map((item) => item.key + " " + item.value)];
 

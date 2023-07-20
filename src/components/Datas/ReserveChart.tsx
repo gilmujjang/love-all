@@ -1,5 +1,5 @@
 import { Bar } from "react-chartjs-2";
-import { DataEnum, OriginData } from "../../types";
+import { DataEnum } from "../../types";
 import { countData, sortDataByValue } from "../../utils/data";
 import {
   registerables,
@@ -11,6 +11,7 @@ import {
   CategoryScale,
 } from "chart.js";
 import { SkyBlue } from "../../assets/constants";
+import { gameDataStore } from "../../store/gameDataStore";
 
 ChartJS.register(
   Title,
@@ -21,15 +22,11 @@ ChartJS.register(
   ...registerables
 );
 
-interface Props {
-  data: OriginData[];
-}
-
-const ReserveChart = ({ data }: Props) => {
-  const playTimeCount = sortDataByValue(countData(data, DataEnum.예약자)).slice(
-    0,
-    15
-  );
+const ReserveChart = () => {
+  const { reservedData } = gameDataStore();
+  const playTimeCount = sortDataByValue(
+    countData(reservedData, DataEnum.예약자)
+  ).slice(0, 15);
 
   const dataSet = {
     labels: playTimeCount.map((item) => item.key),
