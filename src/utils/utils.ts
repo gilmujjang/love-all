@@ -98,7 +98,7 @@ export const getRangeDisplayName = (range: RangeEnum) => {
   }
 };
 
-export const getDuration = (start: string, end?: string) => {
+export const getDuration = (num: number, start: string, end?: string) => {
   const startDate = new Date(start);
   const endDate = end ? new Date(end) : new Date();
 
@@ -106,12 +106,36 @@ export const getDuration = (start: string, end?: string) => {
     (endDate.getTime() - startDate.getTime()) / 60000
   );
 
-  if (duration < 60) return `${duration / 60 / 24}분`;
-  if (duration < 60 * 24) return `${Math.floor(duration / 60)}시간`;
-  if (duration < 60 * 24 * 30) return `${Math.floor(duration / 60 / 24)}일`;
-  if (duration < 60 * 24 * 365)
-    return `${Math.floor(duration / 60 / 24 / 30)}개월`;
-  return `${Math.floor(duration / 60 / 24 / 365)}년`;
+  let text = "";
+  let cnt = 0;
+  const year = Math.floor(duration / 60 / 24 / 365);
+  const month = Math.floor(duration / 60 / 24 / 30);
+  const day = Math.floor(duration / 60 / 24);
+  const hour = Math.floor(duration / 60);
+  const minute = duration;
+
+  if (year) {
+    text += year + "년 ";
+    cnt += 1;
+  }
+  if (month) {
+    text += month - 12 * year + "개월 ";
+    cnt += 1;
+  }
+  if (day && cnt < num) {
+    text += day - 30 * month + "일 ";
+    cnt += 1;
+  }
+  if (hour && cnt < num) {
+    text += hour - 24 * day + "시간 ";
+    cnt += 1;
+  }
+  if (minute && cnt < num) {
+    text += `${minute - 60 * hour} 분 `;
+    cnt += 1;
+  }
+
+  return text;
 };
 
 export const getAge = (start: string) => {
@@ -125,10 +149,11 @@ export const getAge = (start: string) => {
 };
 
 export const makeRandomString = (len: number) => {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let str = '';
-  for(let i = 0; i < len; i++){
-    str += chars.charAt(Math.floor(Math.random()*chars.length));
+  const chars =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let str = "";
+  for (let i = 0; i < len; i++) {
+    str += chars.charAt(Math.floor(Math.random() * chars.length));
   }
   return str;
-}
+};

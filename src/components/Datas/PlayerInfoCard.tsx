@@ -51,10 +51,11 @@ const PlayerInfoCard = () => {
       >
         {playerInfo && (
           <>
-            <div style={{ fontWeight: 600 }}>
-              {`${playerInfo.name} (${getAge(playerInfo.birthDay)})`}
-            </div>
-            <Content title="가입한지" text={getDuration(playerInfo.joinDate)} />
+            <div style={{ fontWeight: 600 }}>{`${playerInfo.name}`}</div>
+            <Content
+              title="가입한지"
+              text={getDuration(2, playerInfo.joinDate)}
+            />
           </>
         )}
         <Content title="함께한 횟수" text={`${playNum}회`} />

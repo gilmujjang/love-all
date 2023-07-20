@@ -5,11 +5,18 @@ import { BoxShadow } from "../utils/styled";
 interface Props {
   width?: number;
   height?: number;
+  padding?: number;
   styles?: CSSProperties;
   children?: ReactNode;
 }
 
-const Card = ({ width = 520, height = 320, styles, children }: Props) => {
+const Card = ({
+  width = 520,
+  height = 320,
+  padding = 16,
+  styles,
+  children,
+}: Props) => {
   return (
     <div
       style={{
@@ -18,7 +25,7 @@ const Card = ({ width = 520, height = 320, styles, children }: Props) => {
         backgroundColor: "white",
         borderRadius: 8,
         boxShadow: BoxShadow,
-        padding: 16,
+        padding: padding,
         width: width,
         height: height,
         marginRight: 16,
