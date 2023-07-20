@@ -8,7 +8,7 @@ const MemberManage = () => {
 
   return (
     <div style={{ width: "100%", height: "100%" }}>
-      <div style={{ fontWeight: "bold", fontSize: 18 }}>회원 명단</div>
+      <h3 style={{ fontWeight: "bold", fontSize: 18 }}>회원 명단</h3>
       <div style={{ marginTop: 24, color: "black" }}>
         {members.map((memberData) => {
           return <MemberCard userData={memberData} />;
@@ -46,17 +46,19 @@ const MemberCard = ({ userData }: { userData: IMember }) => {
           justifyContent: "space-between",
         }}
       >
-        <span>{`${name} (${gender === "male" ? "남" : "여"}/${getAge(
-          birthDay
-        )})`}</span>
+        <span>
+          {`${name} (${gender === "male" ? "남" : "여"}/${getAge(birthDay)})`}
+        </span>
         <span>
           가입: {moment(joinDate).format("YYYY.MM.DD")}
           {` (${getDuration(joinDate)})`}
         </span>
-        <span>
-          {leaveDate ? "탈퇴 " : "생일 "}
-          {moment(leaveDate || birthDay).format("YYYY.MM.DD")}
-        </span>
+        {(leaveDate || birthDay) && (
+          <span>
+            {leaveDate ? "탈퇴 " : "생일 "}
+            {moment(leaveDate || birthDay).format("YYYY.MM.DD")}
+          </span>
+        )}
       </div>
       <div
         style={{
