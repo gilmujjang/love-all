@@ -47,7 +47,6 @@ const Header = () => {
                 >
                   로그아웃
                 </Menu>
-                {isManager && <MenuNavLink to={"/admin"}>어드민</MenuNavLink>}
               </MenuWrapper>
             )}
           </ProfileWrapper>
@@ -55,6 +54,7 @@ const Header = () => {
           <GoogleLogin onClick={handleGoogleLogin} />
         )}
         <SubMenu to={"/"}>데이터 분석</SubMenu>
+        {isManager && <SubMenu to={"/admin"}>어드민</SubMenu>}
       </div>
     </header>
   );

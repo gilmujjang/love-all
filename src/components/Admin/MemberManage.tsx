@@ -32,11 +32,12 @@ const MemberCard = ({ userData }: { userData: IMember }) => {
     <div
       style={{
         padding: "4px 12px",
-        border: "1px solid whitesmoke",
+        border: "1px solid lightgray",
         borderRadius: 16,
         boxShadow: BoxShadow,
         display: "flex",
         flexDirection: "column",
+        marginTop: 8,
       }}
     >
       <div
