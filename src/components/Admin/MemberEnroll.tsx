@@ -67,7 +67,7 @@ const MemberEnroll = () => {
       createdDate: moment(new Date()).format("YYYY.MM.DD"),
       gender: formInfo.gender,
       isAdmin: false,
-      isManager: false,
+      isManager: formInfo.isManager,
       joinDate: moment(formInfo.joinDate).format("YYYY.MM.DD"),
       name: formInfo.name,
       uid: "",

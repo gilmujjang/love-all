@@ -7,9 +7,26 @@ const MemberManage = () => {
   const { members } = memberStore();
 
   return (
-    <div style={{ width: "100%", height: "100%" }}>
-      <h3 style={{ fontWeight: "bold", fontSize: 18 }}>회원 명단</h3>
-      <div style={{ marginTop: 24, color: "black" }}>
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        flex: 1,
+      }}
+    >
+      <h3
+        style={{
+          fontWeight: "bold",
+          fontSize: 18,
+          padding: 16,
+          borderBottom: "1px solid whitesmoke",
+        }}
+      >
+        회원 명단
+      </h3>
+      <div style={{ flex: 1, color: "black", overflowY: "auto" }}>
         {members.map((memberData) => {
           return <MemberCard userData={memberData} />;
         })}
@@ -37,7 +54,7 @@ const MemberCard = ({ userData }: { userData: IMember }) => {
         boxShadow: BoxShadow,
         display: "flex",
         flexDirection: "column",
-        marginTop: 8,
+        margin: "8px 24px",
       }}
     >
       <div
@@ -50,10 +67,12 @@ const MemberCard = ({ userData }: { userData: IMember }) => {
         <span>
           {`${name} (${gender === "male" ? "남" : "여"}/${getAge(birthDay)})`}
         </span>
-        <span>
-          가입: {moment(joinDate).format("YYYY.MM.DD")}
-          {` (${getDuration(joinDate)})`}
-        </span>
+        <div>
+          <div>가입: {moment(joinDate).format("YYYY.MM.DD")}</div>
+          <div style={{ fontSize: 14, color: "gray" }}>
+            {` (${getDuration(2, joinDate)})`}
+          </div>
+        </div>
         {(leaveDate || birthDay) && (
           <span>
             {leaveDate ? "탈퇴 " : "생일 "}

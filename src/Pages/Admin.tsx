@@ -23,7 +23,7 @@ const Admin = () => {
         flexWrap: "wrap",
       }}
     >
-      <Card>
+      <Card height={640} padding={0}>
         <MemberManage />
       </Card>
       <Card>

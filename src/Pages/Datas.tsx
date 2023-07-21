@@ -109,25 +109,25 @@ const Datas = () => {
             justifyContent: "center",
           }}
         >
+          <Card>
+            <LoveAllInfoCard />
+          </Card>
           {range !== RangeEnum.일개월 && (
             <Card>
               <ActiveChart />
             </Card>
           )}
           <Card>
-            <CourtChart />
+            <PlayerChart />
           </Card>
           <Card>
-            <PlayerChart />
+            <CourtChart />
           </Card>
           <Card>
             <ReserveChart />
           </Card>
           <Card>
             <WeekChart />
-          </Card>
-          <Card>
-            <LoveAllInfoCard />
           </Card>
         </div>
       );
