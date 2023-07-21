@@ -7,9 +7,11 @@ import { BoxShadow } from "../utils/styled";
 import { auth } from "../Firebase";
 import googleImage from "../assets/images/googleLogin.png";
 import NoProfileImage from "../assets/images/noProfileImage.png";
+import { gameDataStore } from "../store/gameDataStore";
 
 const Header = () => {
   const { user, isManager, handleGoogleLogin, handleLogout } = authStore();
+  const { setSearchTarget } = gameDataStore();
   const [menuMore, setMenuMore] = useState(false);
 
   return (
@@ -25,6 +27,12 @@ const Header = () => {
       <Link
         to={"/"}
         style={{ fontWeight: "bold", fontSize: 24, color: ThemeColor }}
+        onClick={() => {
+          setSearchTarget({
+            targetType: null,
+            targetName: "",
+          });
+        }}
       >
         월간 러브올
       </Link>

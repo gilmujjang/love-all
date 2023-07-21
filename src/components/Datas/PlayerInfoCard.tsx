@@ -16,11 +16,27 @@ const PlayerInfoCard = () => {
   const haveRelation = Object.keys(playTimeData).length || 0;
   const rainyNum = countData(rainyData, DataEnum.이름)[targetName] || 0;
 
-  const Content = ({ title, text }: { title: string; text: string }) => {
+  const Content = ({
+    beforeBold,
+    bold,
+    afterBold,
+  }: {
+    beforeBold?: string;
+    bold: string;
+    afterBold?: string;
+  }) => {
     return (
-      <div style={{ display: "flex", marginTop: 12 }}>
-        <div>{title}</div>
-        <div style={{ marginLeft: 8, fontWeight: 600 }}>{text}</div>
+      <div
+        style={{
+          display: "flex",
+          marginTop: 12,
+          whiteSpace: "pre",
+          color: "black",
+        }}
+      >
+        {beforeBold && <div>{beforeBold}</div>}
+        <div style={{ fontWeight: 600 }}>{bold}</div>
+        {afterBold && <div>{afterBold}</div>}
       </div>
     );
   };
@@ -42,7 +58,6 @@ const PlayerInfoCard = () => {
       </div>
       <div
         style={{
-          marginTop: 24,
           color: "black",
           display: "flex",
           flexDirection: "column",
@@ -51,17 +66,17 @@ const PlayerInfoCard = () => {
       >
         {playerInfo && (
           <>
-            <div style={{ fontWeight: 600 }}>{`${playerInfo.name}`}</div>
+            <Content bold={playerInfo.name} />
             <Content
-              title="가입한지"
-              text={getDuration(2, playerInfo.joinDate)}
+              beforeBold="가입한지 "
+              bold={getDuration(2, playerInfo.joinDate)}
             />
           </>
         )}
-        <Content title="함께한 횟수" text={`${playNum}회`} />
-        <Content title="함께한 시간" text={`${playTime}시간`} />
-        <Content title="함께한 인연" text={`${haveRelation}명`} />
-        <Content title="우천 취소" text={`${rainyNum}번`} />
+        <Content beforeBold="함께한 횟수" bold={` ${playNum}회`} />
+        <Content beforeBold="함께한 시간" bold={` ${playTime}시간`} />
+        <Content beforeBold="함께한 인연" bold={` ${haveRelation}명`} />
+        <Content beforeBold="우천 취소" bold={` ${rainyNum}번`} />
       </div>
     </div>
   );
