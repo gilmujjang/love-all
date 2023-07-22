@@ -127,15 +127,4 @@ const Menu = styled.li`
   }
 `;
 
-const MenuNavLink = styled(NavLink)`
-  display: block;
-  width: 94px;
-  background-color: white;
-  border-top: 1px solid lightgray;
-  padding: 4px 8px;
-  &:hover {
-    background-color: whitesmoke;
-  }
-`;
-
 export default Header;

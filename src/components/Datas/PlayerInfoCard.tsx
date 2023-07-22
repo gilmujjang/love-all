@@ -2,7 +2,7 @@ import { gameDataStore } from "../../store/gameDataStore";
 import { memberStore } from "../../store/memberStore";
 import { DataEnum, RangeEnum } from "../../types";
 import { countData, countPlayTimeData } from "../../utils/data";
-import { getAge, getDuration, getRangeDisplayName } from "../../utils/utils";
+import { getDuration, getRangeDisplayName } from "../../utils/utils";
 
 const PlayerInfoCard = () => {
   const { members } = memberStore();
