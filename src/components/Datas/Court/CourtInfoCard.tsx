@@ -1,20 +1,20 @@
-import { gameDataStore } from "../../store/gameDataStore";
-import { memberStore } from "../../store/memberStore";
-import { DataEnum, RangeEnum } from "../../types";
-import { countData, countPlayTimeData } from "../../utils/data";
-import { getDuration, getRangeDisplayName } from "../../utils/utils";
+import { gameDataStore } from "../../../store/gameDataStore";
+import { memberStore } from "../../../store/memberStore";
+import { DataEnum, RangeEnum } from "../../../types";
+import { countPlayTimeData, removeDuplicatedCourt } from "../../../utils/data";
+import { getDuration, getRangeDisplayName } from "../../../utils/utils";
 
-const PlayerInfoCard = () => {
+const CourtInfoCard = () => {
   const { members } = memberStore();
-  const { searchTarget, range, myGameData, rainyData } = gameDataStore();
+  const { searchTarget, range, totalData, rainyData } = gameDataStore();
   const { targetName } = searchTarget;
   const playerInfo = members.find((member) => member.name === targetName);
-
-  const playNum = countData(myGameData, DataEnum.이름)[targetName];
-  const playTimeData = countPlayTimeData(myGameData, DataEnum.이름);
-  const playTime = playTimeData[targetName] || 0;
+  const playTimeData = countPlayTimeData(totalData, DataEnum.이름);
   const haveRelation = Object.keys(playTimeData).length || 0;
-  const rainyNum = countData(rainyData, DataEnum.이름)[targetName] || 0;
+  const playNum = removeDuplicatedCourt(totalData).length || 0;
+  const playTime =
+    totalData.reduce((sum, curr) => (sum += Number(curr.운동시간)), 0) || 0;
+  const rainyNum = removeDuplicatedCourt(rainyData).length || 0;
 
   const Content = ({
     beforeBold,
@@ -74,7 +74,7 @@ const PlayerInfoCard = () => {
           </>
         )}
         <Content beforeBold="함께한 인연" bold={` ${haveRelation}명`} />
-        <Content beforeBold="함께한 횟수" bold={` ${playNum}회`} />
+        <Content beforeBold="모임 횟수" bold={` ${playNum}회`} />
         <Content beforeBold="함께한 시간" bold={` ${playTime}시간`} />
         <Content beforeBold="우천 취소" bold={` ${rainyNum}번`} />
       </div>
@@ -82,4 +82,4 @@ const PlayerInfoCard = () => {
   );
 };
 
-export default PlayerInfoCard;
+export default CourtInfoCard;

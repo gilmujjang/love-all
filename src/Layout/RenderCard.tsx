@@ -9,6 +9,8 @@ import PlayerInfoCard from "../components/Datas/PlayerInfoCard";
 import ReserveChart from "../components/Datas/ReserveChart";
 import WeekChart from "../components/Datas/WeekChard";
 import { SearchType, RangeEnum } from "../types";
+import CourtInfoCard from "../components/Datas/Court/CourtInfoCard";
+import CourtPlayerChart from "../components/Datas/Court/CourtPlayerChart";
 
 const RenderCard = () => {
   const { range, searchTarget } = gameDataStore();
@@ -57,18 +59,18 @@ const RenderCard = () => {
           }}
         >
           <Card>
-            <PlayerInfoCard />
+            <CourtInfoCard />
           </Card>
           {range !== RangeEnum.일개월 && (
             <Card>
-              <ActiveChart />
+              <CourtPlayerChart />
             </Card>
           )}
           <Card>
-            <CourtChart />
+            <PlayerChart />
           </Card>
           <Card>
-            <BestPartnerChart />
+            <ReserveChart />
           </Card>
           <Card>
             <WeekChart />

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import SearchLayout from "../Layout/SearchLayout";
-import { DataEnum } from "../types";
+import { DataEnum, SearchType } from "../types";
 import { countData, getData, getMyGameData } from "../utils/data";
 import { makeRangeDate } from "../utils/utils";
 import { ThemeColor } from "../assets/constants";
@@ -17,11 +17,9 @@ const Datas = () => {
     setReservedData,
     setRainyData,
     setPlayerList,
-    playerList,
     setCourtList,
-    courtList,
   } = gameDataStore();
-  const { targetName } = searchTarget;
+  const { targetName, targetType } = searchTarget;
 
   useEffect(() => {
     const totalData = getData({});
@@ -32,19 +30,18 @@ const Datas = () => {
   }, [setPlayerList, setCourtList]);
 
   useEffect(() => {
-    const targetIsPlayer = playerList.includes(targetName);
-    const targetIsCourt = courtList.includes(targetName);
     const myData = getData({
       startDate: makeRangeDate(range),
-      name: targetIsPlayer ? targetName : undefined,
-      court: targetIsCourt ? targetName : undefined,
+      name: targetType === SearchType.player ? targetName : undefined,
+      court: targetType === SearchType.court ? targetName : undefined,
     });
     setTotalData(myData);
 
     setRainyData(
       getData({
         startDate: makeRangeDate(range),
-        name: targetName ? targetName : undefined,
+        name: targetType === SearchType.player ? targetName : undefined,
+        court: targetType === SearchType.court ? targetName : undefined,
         rainy: true,
       })
     );
@@ -52,7 +49,8 @@ const Datas = () => {
     setReservedData(
       getData({
         startDate: makeRangeDate(range),
-        reservation: targetName ? targetName : undefined,
+        reservation: targetType === SearchType.player ? targetName : undefined,
+        court: targetType === SearchType.court ? targetName : undefined,
       })
     );
 
