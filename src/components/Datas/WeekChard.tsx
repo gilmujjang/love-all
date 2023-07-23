@@ -1,6 +1,10 @@
 import { Doughnut } from "react-chartjs-2";
 import { DataEnum } from "../../types";
-import { countData, sortDataByValue } from "../../utils/data";
+import {
+  countData,
+  removeDuplicatedCourt,
+  sortDataByValue,
+} from "../../utils/data";
 import {
   Chart as ChartJS,
   Title,
@@ -27,7 +31,9 @@ ChartJS.register(
 const WeekChart = () => {
   const { totalData } = gameDataStore();
 
-  const weekData = sortDataByValue(countData(totalData, DataEnum.요일));
+  const weekData = sortDataByValue(
+    countData(removeDuplicatedCourt(totalData), DataEnum.요일)
+  );
 
   const labels = [...weekData.map((item) => item.key + " " + item.value)];
 

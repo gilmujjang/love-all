@@ -1,7 +1,7 @@
 import originData from "/src/assets/data/data.json";
 import { DataFilter, OriginData, DataEnum } from "../types";
 
-const getData = ({
+export const getData = ({
   startDate,
   endDate,
   name,
@@ -34,7 +34,7 @@ const getData = ({
   return filteredData;
 };
 
-const getMyGameData = ({
+export const getMyGameData = ({
   data,
   myPlayData,
 }: {
@@ -66,7 +66,7 @@ const getMyGameData = ({
   return myGameData;
 };
 
-const countData = (data: OriginData[], target: DataEnum) => {
+export const countData = (data: OriginData[], target: DataEnum) => {
   const temp: { [key: string]: number } = {};
   data.map((item) => {
     const targetData = item[target];
@@ -82,7 +82,29 @@ const countData = (data: OriginData[], target: DataEnum) => {
   return temp;
 };
 
-const countPlayTimeData = (data: OriginData[], target: DataEnum) => {
+export const removeDuplicatedCourt = (data: OriginData[]) => {
+  let temp: OriginData | null = null;
+  const filteredData = data.filter((item) => {
+    if (
+      temp === null ||
+      (item?.장소 === temp?.장소 &&
+        item?.년 === temp?.년 &&
+        item?.월 === temp?.월 &&
+        item?.일 === temp?.일 &&
+        item?.시작시간 === temp?.시작시간 &&
+        item?.종료시간 === temp?.종료시간)
+    ) {
+      temp = item;
+      return false;
+    } else {
+      temp = item;
+      return true;
+    }
+  });
+  return filteredData;
+};
+
+export const countPlayTimeData = (data: OriginData[], target: DataEnum) => {
   const temp: { [key: string]: number } = {};
   data.map((item) => {
     const targetData = item[target];
@@ -98,7 +120,7 @@ const countPlayTimeData = (data: OriginData[], target: DataEnum) => {
   return temp;
 };
 
-const countDataMonthly = (data: OriginData[]) => {
+export const countDataMonthly = (data: OriginData[]) => {
   const temp: { [key: string]: number } = {};
   data.map((item) => {
     const targetData: string =
@@ -118,7 +140,7 @@ const countDataMonthly = (data: OriginData[]) => {
   return temp;
 };
 
-const checkZero = (data: { [key: string]: number }) => {
+export const checkZero = (data: { [key: string]: number }) => {
   const keys = Object.keys(data);
   let tempYear = 0;
   let tempMonth = 0;
@@ -147,7 +169,7 @@ const checkZero = (data: { [key: string]: number }) => {
   return data;
 };
 
-const compareZero = (
+export const compareZero = (
   data: { [key: string]: number },
   compareData: { [key: string]: number }
 ) => {
@@ -159,28 +181,16 @@ const compareZero = (
   return data;
 };
 
-const sortDataByValue = (data: { [key: string]: number }) => {
+export const sortDataByValue = (data: { [key: string]: number }) => {
   const sortedArray = Object.entries(data)
     .sort((a, b) => b[1] - a[1])
     .map(([key, value]) => ({ key, value }));
   return sortedArray;
 };
 
-const sortDataByKey = (data: { [key: string]: number }) => {
+export const sortDataByKey = (data: { [key: string]: number }) => {
   const sortedArray = Object.entries(data)
     .sort((a, b) => Number(a[0]) - Number(b[0]))
     .map(([key, value]) => ({ key, value }));
   return sortedArray;
-};
-
-export {
-  getData,
-  getMyGameData,
-  countData,
-  countPlayTimeData,
-  countDataMonthly,
-  checkZero,
-  compareZero,
-  sortDataByValue,
-  sortDataByKey,
 };

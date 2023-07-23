@@ -5,6 +5,7 @@ import { DataEnum } from "../../types";
 import {
   countData,
   countPlayTimeData,
+  removeDuplicatedCourt,
   sortDataByValue,
 } from "../../utils/data";
 
@@ -21,12 +22,7 @@ const LoveAllInfoCard = () => {
     const countPlayerList = countData(totalData, DataEnum.이름);
     const countPlayTimeList = countPlayTimeData(totalData, DataEnum.이름);
     setFilteredPlayerList(Object.keys(countPlayerList));
-    setPlayNum(
-      Object.values(countPlayerList)?.reduce(
-        (accumulate, curr) => accumulate + curr,
-        0
-      )
-    );
+    setPlayNum(removeDuplicatedCourt(totalData).length);
     setPlayTime(
       Object.values(countPlayTimeList)?.reduce(
         (accumulate: number, curr: number) => accumulate + curr,

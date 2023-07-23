@@ -3,6 +3,7 @@ import {
   checkZero,
   compareZero,
   countDataMonthly,
+  removeDuplicatedCourt,
   sortDataByKey,
 } from "../../utils/data";
 import {
@@ -29,7 +30,7 @@ ChartJS.register(
 const ActiveChart = () => {
   const { totalData, reservedData, searchTarget } = gameDataStore();
   const { targetName } = searchTarget;
-  const countedDataMonthly = countDataMonthly(totalData);
+  const countedDataMonthly = countDataMonthly(removeDuplicatedCourt(totalData));
   const playTimeCount = sortDataByKey(checkZero(countedDataMonthly));
 
   const reservedCount = sortDataByKey(
