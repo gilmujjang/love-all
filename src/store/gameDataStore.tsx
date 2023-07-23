@@ -1,8 +1,8 @@
 import { create } from "zustand";
-import { OriginData, RangeEnum } from "../types";
+import { OriginData, RangeEnum, SearchType } from "../types";
 
 interface ITargetType {
-  targetType: "player" | "court" | null;
+  targetType: SearchType | null;
   targetName: string;
 }
 
@@ -13,6 +13,8 @@ interface IGameDataStore {
   setRange: (data: RangeEnum) => void;
   totalData: OriginData[];
   setTotalData: (datas: OriginData[]) => void;
+  courtData: OriginData[];
+  setCourtData: (datas: OriginData[]) => void;
   myGameData: OriginData[];
   setMyGameData: (datas: OriginData[]) => void;
   reservedData: OriginData[];
@@ -21,6 +23,8 @@ interface IGameDataStore {
   setRainyData: (datas: OriginData[]) => void;
   playerList: string[];
   setPlayerList: (datas: string[]) => void;
+  courtList: string[];
+  setCourtList: (datas: string[]) => void;
 }
 
 export const gameDataStore = create<IGameDataStore>((set) => ({
@@ -28,6 +32,8 @@ export const gameDataStore = create<IGameDataStore>((set) => ({
   setSearchTarget: (data: ITargetType) => set({ searchTarget: data }),
   range: RangeEnum.육개월,
   setRange: (data: RangeEnum) => set({ range: data }),
+  courtData: [],
+  setCourtData: (datas: OriginData[]) => set({ courtData: datas }),
   totalData: [],
   setTotalData: (datas: OriginData[]) => set({ totalData: datas }),
   myGameData: [],
@@ -38,4 +44,6 @@ export const gameDataStore = create<IGameDataStore>((set) => ({
   setRainyData: (datas: OriginData[]) => set({ rainyData: datas }),
   playerList: [],
   setPlayerList: (datas: string[]) => set({ playerList: datas }),
+  courtList: [],
+  setCourtList: (datas: string[]) => set({ courtList: datas }),
 }));

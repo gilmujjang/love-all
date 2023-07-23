@@ -67,3 +67,8 @@ export interface MemberDoc {
   name: string;
   uid: string;
 }
+
+export enum SearchType {
+  "player" = 1,
+  "court" = 2,
+}

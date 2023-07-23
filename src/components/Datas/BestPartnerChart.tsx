@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 import { gameDataStore } from "../../store/gameDataStore";
-import { DataEnum } from "../../types";
+import { DataEnum, SearchType } from "../../types";
 import { countData, sortDataByValue } from "../../utils/data";
 
 const MAX = 3;
@@ -66,7 +66,7 @@ const BestPartnerChart = () => {
           onClick={() =>
             courtCount[rank]?.key &&
             setSearchTarget({
-              targetType: "player",
+              targetType: SearchType.player,
               targetName: courtCount[rank].key,
             })
           }
