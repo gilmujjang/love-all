@@ -59,6 +59,14 @@ const Header = () => {
                 >
                   로그아웃
                 </Menu>
+                {!user && (
+                  <Menu
+                    style={{ borderTop: "none" }}
+                    onClick={() => navigate("/SignUp")}
+                  >
+                    회원 가입
+                  </Menu>
+                )}
               </MenuWrapper>
             )}
           </ProfileWrapper>
