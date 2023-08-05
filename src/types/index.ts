@@ -30,6 +30,19 @@ export interface DataFilter {
   month?: string;
 }
 
+export interface IMember {
+  uid: string;
+  name: string;
+  gender: string;
+  isManager: boolean;
+  isAdmin: boolean;
+  joinDate: string;
+  birthDay: string;
+  createdDate: string;
+  editedDate?: string;
+  leaveDate?: string;
+}
+
 export enum DataEnum {
   번호 = "번호",
   날짜 = "날짜",

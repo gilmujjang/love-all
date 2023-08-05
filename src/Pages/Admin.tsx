@@ -6,13 +6,13 @@ import MemberEnroll from "../components/Admin/MemberEnroll";
 import MemberManage from "../components/Admin/MemberManage";
 
 const Admin = () => {
-  const { isManager } = authStore();
+  const { user } = authStore();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isManager) navigate("/");
+    if (!user?.isManager) navigate("/");
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isManager]);
+  }, [user?.isManager]);
 
   return (
     <div

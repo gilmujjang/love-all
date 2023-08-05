@@ -66,14 +66,16 @@ const LoveAllInfoCard = () => {
       <div style={{ whiteSpace: "nowrap", fontWeight: "bold", fontSize: 18 }}>
         러브올의 기록
       </div>
-      <Content bold={`${members.length}명`} afterBold="의 가입 회원" />
+      {members.length !== 0 && (
+        <Content bold={`${members.length}명`} afterBold="의 가입 회원" />
+      )}
       <Content bold={`${filteredPlayerList.length}명`} afterBold="의 참여" />
       <Content bold={`${playNum}번`} afterBold="의 만남" />
       <Content beforeBold="함께한" bold={` ${playTime}시간`} />
 
       {countRainyData?.[0] && (
         <Content
-          beforeBold="🧚"
+          beforeBold="😂"
           bold={`${countRainyData[0].key}(우천취소 ${countRainyData[0].value}번)`}
         />
       )}

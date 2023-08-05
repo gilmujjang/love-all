@@ -74,7 +74,7 @@ const PlayerInfoCard = () => {
           </>
         )}
         <Content beforeBold="함께한 인연" bold={` ${haveRelation}명`} />
-        <Content beforeBold="함께한 횟수" bold={` ${playNum}회`} />
+        <Content beforeBold="함께한 횟수" bold={` ${playNum || 0}회`} />
         <Content beforeBold="함께한 시간" bold={` ${playTime}시간`} />
         <Content beforeBold="우천 취소" bold={` ${rainyNum}번`} />
       </div>

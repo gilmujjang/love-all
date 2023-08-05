@@ -9,35 +9,33 @@ import {
 } from "firebase/auth";
 import { create } from "zustand";
 import { auth } from "../Firebase";
+import { IMember } from "../types";
 
 export interface IAuthStore {
-  isManager: boolean;
-  setIsManager: (value: boolean) => void;
-  isAdmin: boolean;
-  setIsAdmin: (value: boolean) => void;
-  user: User | null;
-  setUser: (newUser: User | null) => void;
+  user: IMember | null;
+  setUser: (data: IMember | null) => void;
+  googleLoginInfo: User | null;
+  setGoogleLoginInfo: (newUser: User | null) => void;
   autoLogin: (auth: Auth) => void;
   handleGoogleLogin: () => void;
   handleLogout: (auth: Auth) => void;
 }
 
 export const authStore = create<IAuthStore>((set) => ({
-  isManager: false,
-  setIsManager: (value: boolean) => set({ isManager: value }),
-  isAdmin: false,
-  setIsAdmin: (value: boolean) => set({ isAdmin: value }),
   user: null,
-  setUser: (newUser: User | null) => set({ user: newUser }),
+  setUser: (data: IMember | null) => set({ user: data }),
+  googleLoginInfo: null,
+  setGoogleLoginInfo: (newUser: User | null) =>
+    set({ googleLoginInfo: newUser }),
 
   autoLogin: (auth) => {
     try {
       onAuthStateChanged(auth, (newUser) => {
-        if (newUser) set({ user: newUser });
-        else set({ user: null });
+        if (newUser) set({ googleLoginInfo: newUser });
+        else set({ googleLoginInfo: null });
       });
     } catch {
-      set({ user: null });
+      set({ googleLoginInfo: null });
     }
   },
 
@@ -52,15 +50,16 @@ export const authStore = create<IAuthStore>((set) => ({
       });
     signInWithPopup(auth, provider)
       .then((data) => {
-        set({ user: data.user });
+        set({ googleLoginInfo: data.user });
       })
       .catch((error) => {
         console.log(error);
-        set({ user: null });
+        set({ googleLoginInfo: null });
       });
   },
 
   handleLogout: (auth) => {
     auth.signOut();
+    set({ user: null, googleLoginInfo: null });
   },
 }));

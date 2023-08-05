@@ -6,6 +6,7 @@ import { gameDataStore } from "../store/gameDataStore";
 import { RangeEnum, SearchType } from "../types";
 import Button from "../components/Button";
 import { getRangeDisplayName } from "../utils/utils";
+import { authStore } from "../store/authStore";
 
 const SearchLayout = () => {
   const {
@@ -16,6 +17,7 @@ const SearchLayout = () => {
     range,
     setRange,
   } = gameDataStore();
+  const { user, googleLoginInfo } = authStore();
   const [autoTargetNameList, setAutoTargetNameList] = useState<
     { targetName: string; targetType: SearchType | null }[]
   >([]);
