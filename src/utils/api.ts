@@ -1,4 +1,11 @@
-import { query, collection, getDocs, setDoc, doc } from "firebase/firestore";
+import {
+  query,
+  collection,
+  getDocs,
+  setDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import { fireStore } from "../Firebase";
 import { GROUP } from "../constants";
 import { MemberDoc } from "../types";
@@ -13,4 +20,14 @@ export const postMember = async (payload: MemberDoc) => {
     doc(fireStore, GROUP, "members", "members", payload.name),
     payload
   );
+};
+
+export const updateMember = async (
+  memberName: string,
+  target: string,
+  value: string | number | boolean | null
+) => {
+  await updateDoc(doc(fireStore, GROUP, "members", "members", memberName), {
+    [target]: value,
+  });
 };

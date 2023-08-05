@@ -1,7 +1,8 @@
 import moment from "moment";
-import { memberStore, IMember } from "../../store/memberStore";
+import { memberStore } from "../../store/memberStore";
 import { BoxShadow } from "../../utils/styled";
 import { getAge, getDuration } from "../../utils/utils";
+import { IMember } from "../../types";
 
 const MemberManage = () => {
   const { members } = memberStore();

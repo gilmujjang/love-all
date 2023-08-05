@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { SkyBlue, ThemeColor } from "../assets/constants";
 import styled from "styled-components";
 import { authStore } from "../store/authStore";
@@ -10,9 +10,11 @@ import NoProfileImage from "../assets/images/noProfileImage.png";
 import { gameDataStore } from "../store/gameDataStore";
 
 const Header = () => {
-  const { user, isManager, handleGoogleLogin, handleLogout } = authStore();
+  const { user, googleLoginInfo, handleGoogleLogin, handleLogout } =
+    authStore();
   const { setSearchTarget } = gameDataStore();
   const [menuMore, setMenuMore] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <header
@@ -37,7 +39,7 @@ const Header = () => {
         월간 러브올
       </Link>
       <div style={{ display: "flex", alignItems: "center" }}>
-        {user ? (
+        {googleLoginInfo ? (
           <ProfileWrapper
             style={{
               position: "relative",
@@ -45,8 +47,10 @@ const Header = () => {
             }}
             onClick={() => setMenuMore(!menuMore)}
           >
-            <Profile src={user.photoURL || NoProfileImage} />
-            <DisplayName>{user.displayName}님</DisplayName>
+            <Profile src={googleLoginInfo?.photoURL || NoProfileImage} />
+            <DisplayName>
+              {user?.name || googleLoginInfo.displayName}님
+            </DisplayName>
             {menuMore && (
               <MenuWrapper>
                 <Menu
@@ -55,6 +59,14 @@ const Header = () => {
                 >
                   로그아웃
                 </Menu>
+                {!user && (
+                  <Menu
+                    style={{ borderTop: "none" }}
+                    onClick={() => navigate("/SignUp")}
+                  >
+                    회원 가입
+                  </Menu>
+                )}
               </MenuWrapper>
             )}
           </ProfileWrapper>
@@ -62,7 +74,7 @@ const Header = () => {
           <GoogleLogin onClick={handleGoogleLogin} />
         )}
         <SubMenu to={"/"}>데이터 분석</SubMenu>
-        {isManager && <SubMenu to={"/admin"}>어드민</SubMenu>}
+        {user?.isManager && <SubMenu to={"/admin"}>어드민</SubMenu>}
       </div>
     </header>
   );

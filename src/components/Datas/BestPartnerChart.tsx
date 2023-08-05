@@ -1,5 +1,6 @@
 /* eslint-disable */
 
+import { authStore } from "../../store/authStore";
 import { gameDataStore } from "../../store/gameDataStore";
 import { DataEnum, SearchType } from "../../types";
 import { countData, sortDataByValue } from "../../utils/data";
@@ -8,6 +9,7 @@ const MAX = 3;
 
 const BestPartnerChart = () => {
   const { myGameData, searchTarget, setSearchTarget } = gameDataStore();
+  const { user } = authStore();
   const { targetName } = searchTarget;
   const countedData = countData(myGameData, DataEnum.이름);
   delete countedData[targetName];
@@ -64,6 +66,7 @@ const BestPartnerChart = () => {
             cursor: "pointer",
           }}
           onClick={() =>
+            user?.isManager &&
             courtCount[rank]?.key &&
             setSearchTarget({
               targetType: SearchType.player,

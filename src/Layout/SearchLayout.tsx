@@ -6,6 +6,7 @@ import { gameDataStore } from "../store/gameDataStore";
 import { RangeEnum, SearchType } from "../types";
 import Button from "../components/Button";
 import { getRangeDisplayName } from "../utils/utils";
+import { authStore } from "../store/authStore";
 
 const SearchLayout = () => {
   const {
@@ -16,6 +17,7 @@ const SearchLayout = () => {
     range,
     setRange,
   } = gameDataStore();
+  const { user, googleLoginInfo } = authStore();
   const [autoTargetNameList, setAutoTargetNameList] = useState<
     { targetName: string; targetType: SearchType | null }[]
   >([]);
@@ -32,10 +34,14 @@ const SearchLayout = () => {
   }, [targetName]);
 
   useEffect(() => {
-    if (input) {
-      const playerListObj = playerList.map((player) => {
-        return { targetType: SearchType.player, targetName: player };
-      });
+    if (input && user) {
+      const root = user.isManager;
+      const playerListObj = playerList
+        .filter((player) => (root ? true : player === user.name))
+        .map((player) => {
+          return { targetType: SearchType.player, targetName: player };
+        });
+
       const courtListObj = courtList.map((court) => {
         return { targetType: SearchType.court, targetName: court };
       });
@@ -126,15 +132,26 @@ const SearchLayout = () => {
           position: "relative",
         }}
       >
-        <SearchIcon
-          style={{ position: "absolute", right: "8px", cursor: "pointer" }}
-          onClick={() => setSearchTarget(seleted)}
-        />
         <Input
           value={input}
           onKeyDown={handleKey}
           onChange={(e) => setInput(e.target.value)}
           type="text"
+          placeholder={
+            googleLoginInfo
+              ? user
+                ? ""
+                : "회원가입 하면 사용 가능"
+              : "로그인 하면 사용 가능"
+          }
+          disabled={!user}
+          style={{
+            backgroundColor: user ? "#ffffff" : "#eeeeee",
+          }}
+        />
+        <SearchIcon
+          style={{ position: "absolute", right: "8px", cursor: "pointer" }}
+          onClick={() => setSearchTarget(seleted)}
         />
         {autoTargetNameList.length !== 0 && (
           <SearchBox>

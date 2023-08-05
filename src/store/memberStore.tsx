@@ -1,17 +1,5 @@
 import { create } from "zustand";
-
-export interface IMember {
-  uid: string;
-  name: string;
-  gender: string;
-  isManager: boolean;
-  isAdmin: boolean;
-  joinDate: string;
-  birthDay: string;
-  createdDate: string;
-  editedDate?: string;
-  leaveDate?: string;
-}
+import { IMember } from "../types";
 
 export interface IMemberStore {
   members: IMember[];
@@ -19,6 +7,7 @@ export interface IMemberStore {
 }
 
 export const memberStore = create<IMemberStore>((set) => ({
+  user: null,
   members: [],
   setMembers: (memberList: IMember[]) => set({ members: memberList }),
 }));
