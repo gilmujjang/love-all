@@ -6,14 +6,12 @@ import {
   countData,
   countPlayTimeData,
   removeDuplicatedCourt,
-  sortDataByValue,
 } from "../../utils/data";
 
 const LoveAllInfoCard = () => {
-  const { rainyData, totalData } = gameDataStore();
+  const { totalData } = gameDataStore();
   const { members } = memberStore();
 
-  const countRainyData = sortDataByValue(countData(rainyData, DataEnum.이름));
   const [filteredPlayerList, setFilteredPlayerList] = useState<string[]>([]);
   const [playNum, setPlayNum] = useState(0);
   const [playTime, setPlayTime] = useState(0);
@@ -72,13 +70,6 @@ const LoveAllInfoCard = () => {
       <Content bold={`${filteredPlayerList.length}명`} afterBold="의 참여" />
       <Content bold={`${playNum}번`} afterBold="의 만남" />
       <Content beforeBold="함께한" bold={` ${playTime}시간`} />
-
-      {countRainyData?.[0] && (
-        <Content
-          beforeBold="😂"
-          bold={`${countRainyData[0].key}(우천취소 ${countRainyData[0].value}번)`}
-        />
-      )}
     </div>
   );
 };
