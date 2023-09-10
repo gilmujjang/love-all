@@ -86,13 +86,12 @@ export const removeDuplicatedCourt = (data: OriginData[]) => {
   let temp: OriginData | null = null;
   const filteredData = data.filter((item) => {
     if (
-      temp === null ||
-      (item?.장소 === temp?.장소 &&
-        item?.년 === temp?.년 &&
-        item?.월 === temp?.월 &&
-        item?.일 === temp?.일 &&
-        item?.시작시간 === temp?.시작시간 &&
-        item?.종료시간 === temp?.종료시간)
+      item?.장소 === temp?.장소 &&
+      item?.년 === temp?.년 &&
+      item?.월 === temp?.월 &&
+      item?.일 === temp?.일 &&
+      item?.시작시간 === temp?.시작시간 &&
+      item?.종료시간 === temp?.종료시간
     ) {
       temp = item;
       return false;
